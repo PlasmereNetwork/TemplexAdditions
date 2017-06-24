@@ -1,2 +1,2 @@
-# TemplexAdditions
-Where we update and add custom made commands for the Templex Server.
+# IcebergAdditions
+Additions made through the VanillaAdditions plugin for TheIceberg Minecraft Server.
