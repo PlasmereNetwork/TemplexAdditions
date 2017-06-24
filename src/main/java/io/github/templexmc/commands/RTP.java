@@ -10,7 +10,7 @@ import net.md_5.bungee.api.event.TabCompleteEvent;
 import java.util.Collections;
 
 /**
- * TODO
+ * Randomly tps players.
  */
 public class RTP extends TabbableCommand {
 
@@ -20,11 +20,20 @@ public class RTP extends TabbableCommand {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        try {
-            Daemon.getInstance().submitCommands(Collections.singletonList("/spreadplayers ~ ~ 700000 2000000 false " + commandSender.getName()));
-            commandSender.sendMessage(new ComponentBuilder("You have been successfully randomly tped!").color(ChatColor.GREEN).create());
-         } catch (InterruptedException e) {
-            e.printStackTrace();
+// TODO: 6/23/2017          if (strings[1] == null) {
+            try {
+                Daemon.getInstance().submitCommands(Collections.singletonList("/spreadplayers ~ ~ 700000 2000000 false " + commandSender.getName()));
+                commandSender.sendMessage(new ComponentBuilder("You have been successfully randomly tped!").color(ChatColor.GREEN).create());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+// TODO: 6/23/2017              }
+// TODO: 6/23/2017          } else {
+// TODO: 6/23/2017              try {
+// TODO: 6/23/2017                  Daemon.getInstance().submitCommands(Collections.singletonList("/spreadplayers ~ ~ 700000 2000000 false " + strings[1]));
+// TODO: 6/23/2017                  commandSender.sendMessage(new ComponentBuilder("You have been successfully randomly tped!").color(ChatColor.GREEN).create());
+// TODO: 6/23/2017              } catch (InterruptedException e) {
+// TODO: 6/23/2017                  e.printStackTrace();
+// TODO: 6/23/2017              }
         }
     }
 
