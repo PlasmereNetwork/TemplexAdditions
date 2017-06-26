@@ -17,6 +17,13 @@
     <developers>
         <developer>
             <name>${author}</name>
+            <email>templex.mc@gmail.com</email>
+            <timezone>6</timezone>
+            <organization>TemplexMC</organization>
+            <organizationUrl>http://templex.ddns.net</organizationUrl>
+        </developer>
+        <developer>
+            <name>VTCAKAVSMoACE</name>
             <email>vtcakavsmoace@gmail.com</email>
             <timezone>0</timezone>
             <organization>TrulyFree</organization>
@@ -73,7 +80,7 @@
         <dependency>
             <groupId>com.github.TrulyFree</groupId>
             <artifactId>VanillaAdditions</artifactId>
-            <version>1.0.2-3</version>
+            <version>1.0.3</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

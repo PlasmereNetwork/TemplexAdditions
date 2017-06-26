@@ -12,10 +12,11 @@ import java.util.Collections;
 /**
  * Tps players to the End on the Templex server.
  */
-public class End extends TabbableCommand {
+public class EndCommand extends TabbableCommand {
 
-    public End() {
-        super("end","tabbable.end");
+    public EndCommand() {
+        super("end", "tabbable.end");
+        // TODO Make this configurable
     }
 
     @Override
@@ -23,6 +24,7 @@ public class End extends TabbableCommand {
         try {
             Daemon.getInstance().submitCommands(Collections.singletonList("/tp " + commandSender.getName() + " -18970 35 -13209"));
             Daemon.getInstance().submitCommands(Collections.singletonList("/tellraw @a[tag=OP] [{\"text\":\"\\u00A76TP End \\u00A78: \\u00A7cSuccessfully tped \\u00A77" + commandSender.getName() + " to the End!\",\"color\":\"red\"}]"));
+            // TODO Use component builder
             commandSender.sendMessage(new ComponentBuilder("Successfully tped to the End!").color(ChatColor.GREEN).create());
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -30,6 +32,8 @@ public class End extends TabbableCommand {
     }
 
     @Override
-    public void handleTabCompleteEvent(TabCompleteEvent event) {   Util.pushAutocompletePlayers(event);    }
+    public void handleTabCompleteEvent(TabCompleteEvent event) {
+        Util.pushAutocompletePlayers(event);
+    }
 
 }

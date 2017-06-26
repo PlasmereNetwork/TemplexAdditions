@@ -10,9 +10,9 @@ import net.md_5.bungee.api.event.TabCompleteEvent;
 /**
  * TODO
  */
-public class SetHome extends TabbableCommand {
+public class SetHomeCommand extends TabbableCommand {
 
-    public SetHome() {
+    public SetHomeCommand() {
         super("sethome", "tabbable.sethome", "sh");
     }
 
@@ -22,6 +22,8 @@ public class SetHome extends TabbableCommand {
     }
 
     @Override
-    public void handleTabCompleteEvent(TabCompleteEvent event) {    Util.pushAutocompletePlayers(event);    }
+    public void handleTabCompleteEvent(TabCompleteEvent event) {
+        Util.pushAutocompletePlayers(event);
+    }
 
 }

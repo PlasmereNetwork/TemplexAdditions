@@ -2,17 +2,20 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="CommandAdditions" />
         <module name="IcebergAdditions" />
+        <module name="TemplexAdditions" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="CommandAdditions" target="1.7" />
       <module name="IcebergAdditions" target="1.7" />
+      <module name="TemplexAdditions" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

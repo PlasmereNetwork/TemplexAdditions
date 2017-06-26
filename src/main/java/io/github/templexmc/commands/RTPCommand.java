@@ -10,25 +10,28 @@ import net.md_5.bungee.api.event.TabCompleteEvent;
 import java.util.Collections;
 
 /**
- * Tps players to Spawn.
+ * Randomly tps players.
  */
-public class Spawn extends TabbableCommand {
+public class RTPCommand extends TabbableCommand {
 
-    public Spawn() {
-        super("spawn","tabbable.spawn","sp");
+    public RTPCommand() {
+        super("rtp", "tabbable.rtp");
     }
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         try {
-            Daemon.getInstance().submitCommands(Collections.singletonList("/tp " + commandSender.getName() + " 721855 29 -5710"));
-            commandSender.sendMessage(new ComponentBuilder("You have been successfully tped to Spawn!").color(ChatColor.GREEN).create());
+            // TODO RTP-count checking?
+            Daemon.getInstance().submitCommands(Collections.singletonList("/spreadplayers ~ ~ 700000 2000000 false " + commandSender.getName()));
+            commandSender.sendMessage(new ComponentBuilder("You have been successfully randomly tped!").color(ChatColor.GREEN).create());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void handleTabCompleteEvent(TabCompleteEvent event) {   Util.pushAutocompletePlayers(event);    }
+    public void handleTabCompleteEvent(TabCompleteEvent event) {
+        Util.pushAutocompletePlayers(event);
+    }
 
 }

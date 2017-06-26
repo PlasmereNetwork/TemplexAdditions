@@ -5,17 +5,16 @@ import io.github.trulyfree.va.daemon.Daemon;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.Collections;
 
 /**
  * Used for to change someone's gamemode to survival.
  */
-public class Survival extends TabbableCommand {
+public class SurvivalCommand extends TabbableCommand {
 
-    public Survival() {
-        super("survival","tabbable.survival","s");
+    public SurvivalCommand() {
+        super("survival", "tabbable.survival", "s");
     }
 
     @Override
@@ -23,6 +22,7 @@ public class Survival extends TabbableCommand {
         try {
             Daemon.getInstance().submitCommands(Collections.singletonList("/gamemode s " + commandSender.getName()));
             Daemon.getInstance().submitCommands(Collections.singletonList("/tellraw @a[tag=OP] [{\"text\":\"\\u00A76Survival PL \\u00A78: \\u00A7cSet \\u00A77" + commandSender.getName() + "'s gamemode to Survival mode!\",\"color\":\"red\"}]"));
+            // TODO Use component builder
             commandSender.sendMessage(new ComponentBuilder("Your gamemode has been updated to Survival mode!").color(ChatColor.GREEN).create());
         } catch (InterruptedException e) {
             e.printStackTrace();
