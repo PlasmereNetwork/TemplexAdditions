@@ -9,7 +9,7 @@ import net.md_5.bungee.api.plugin.Plugin;
 public class TemplexAdditionsPlugin extends Plugin {
 
     @Getter
-    private ConfigHandler handler;
+    private ConfigHandler configHandler;
 
     @Override
     public void onEnable() {
@@ -18,22 +18,22 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new HelloCommand(),
                 new TPACommand(),
                 new SurvivalCommand(),
-                new SpawnCommand(),
-                new RTPCommand(),
-                // new HomeCommand(), TODO
-                new EndCommand(),
-                // new SetHomeCommand(), TODO
+                new SpawnCommand(this),
+                new RTPCommand(this),
+                new HomeCommand(this), // TODO
+                new EndCommand(this),
+                new SetHomeCommand(this), // TODO
         };
         for (TabbableCommand command : commands) {
             getProxy().getPluginManager().registerCommand(this, command);
         }
-        this.handler = new ConfigHandler(this);
+        this.configHandler = new ConfigHandler(this);
     }
 
     @Override
     public void onDisable() {
         super.onDisable();
         getProxy().getPluginManager().unregisterCommands(this);
-        this.handler = null;
+        this.configHandler = null;
     }
 }

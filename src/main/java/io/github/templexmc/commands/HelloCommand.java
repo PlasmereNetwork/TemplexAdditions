@@ -12,7 +12,7 @@ import java.util.Collections;
  */
 public class HelloCommand extends TabbableCommand {
     public HelloCommand() {
-        super("hello");
+        super("hello", "templex.hello");
     }
 
     @Override

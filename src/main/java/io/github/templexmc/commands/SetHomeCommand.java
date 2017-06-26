@@ -3,6 +3,7 @@ package io.github.templexmc.commands;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
+import io.github.templexmc.TemplexAdditionsPlugin;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.event.TabCompleteEvent;
@@ -12,8 +13,8 @@ import net.md_5.bungee.api.event.TabCompleteEvent;
  */
 public class SetHomeCommand extends TabbableCommand {
 
-    public SetHomeCommand() {
-        super("sethome", "tabbable.sethome", "sh");
+    public SetHomeCommand(TemplexAdditionsPlugin templexAdditionsPlugin) {
+        super("sethome", "templex.sethome", "sh");
     }
 
     @Override

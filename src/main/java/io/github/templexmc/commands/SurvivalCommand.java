@@ -14,7 +14,7 @@ import java.util.Collections;
 public class SurvivalCommand extends TabbableCommand {
 
     public SurvivalCommand() {
-        super("survival", "tabbable.survival", "s");
+        super("survival", "templex.survival", "s");
     }
 
     @Override
