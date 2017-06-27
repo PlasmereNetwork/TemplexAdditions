@@ -1,4 +1,4 @@
-package io.github.templexmc.game;
+package net.ddns.templex.game;
 
 import lombok.Getter;
 
@@ -13,7 +13,7 @@ public class CoordinateTriad extends CoordinatePair {
 
     @Override
     public String toString() {
-        return getX() + " " + getY() + " " + getZ();
+        return String.format("%s %s %s", getX(), getY(), getZ());
     }
 
 }

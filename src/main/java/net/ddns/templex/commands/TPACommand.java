@@ -1,4 +1,4 @@
-package io.github.templexmc.commands;
+package net.ddns.templex.commands;
 
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
@@ -36,11 +36,11 @@ public class TPACommand extends TabbableCommand {
 
     @Override
     public void execute(final CommandSender commandSender, String[] strings) {
-        if (commandSender.equals(ProxyServer.getInstance().getConsole())) {
+        if (!(commandSender instanceof ProxiedPlayer)) {
             return;
         }
         ProxyServer proxy = ProxyServer.getInstance();
-        final ProxiedPlayer enacter = proxy.getPlayer(commandSender.getName());
+        final ProxiedPlayer enacter = (ProxiedPlayer) commandSender;
         if (strings.length == 0) {
             ProxiedPlayer target = null;
             for (Map.Entry<ProxiedPlayer, ProxiedPlayer> entry : requests.entrySet()) {

@@ -2,3 +2,4 @@ name: ${project.artifactId}
 main: ${plugin}
 version: ${project.version}
 author: ${author}
+depends: [VanillaAdditions]

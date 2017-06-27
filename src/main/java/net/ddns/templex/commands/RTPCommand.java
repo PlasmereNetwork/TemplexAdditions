@@ -1,13 +1,15 @@
-package io.github.templexmc.commands;
+package net.ddns.templex.commands;
 
-import io.github.templexmc.TemplexAdditionsPlugin;
-import io.github.templexmc.game.CoordinatePair;
-import io.github.templexmc.game.CoordinateTriad;
+import net.ddns.templex.TemplexAdditionsPlugin;
+import net.ddns.templex.game.CoordinatePair;
+import net.ddns.templex.game.CoordinateTriad;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
+import lombok.NonNull;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.io.IOException;
@@ -20,11 +22,11 @@ public class RTPCommand extends TabbableCommand {
 
     private final CoordinatePair center;
 
-    public RTPCommand(TemplexAdditionsPlugin plugin) {
+    public RTPCommand(@NonNull TemplexAdditionsPlugin plugin) {
         super("rtp", "templex.rtp");
         CoordinatePair center;
         try {
-            center = plugin.getConfigHandler().getConfig("end.json", CoordinateTriad.class);
+            center = plugin.getConfigHandler().getConfig("rtp.json", CoordinateTriad.class);
         } catch (IOException e) {
             center = null;
             e.printStackTrace();
@@ -34,6 +36,9 @@ public class RTPCommand extends TabbableCommand {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
+        if (!(commandSender instanceof ProxiedPlayer)) {
+            return;
+        }
         if (center == null) {
             commandSender.sendMessage(new ComponentBuilder("RTP center coordinates were not specified! Contact an administrator.").color(ChatColor.RED).create());
         }

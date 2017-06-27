@@ -1,4 +1,4 @@
-package io.github.templexmc.commands;
+package net.ddns.templex.commands;
 
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;

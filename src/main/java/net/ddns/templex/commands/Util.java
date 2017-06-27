@@ -1,5 +1,6 @@
-package io.github.templexmc.commands;
+package net.ddns.templex.commands;
 
+import lombok.NonNull;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
@@ -19,7 +20,7 @@ public class Util {
      *
      * @param event The event which triggered the tab complete request.
      */
-    public static void pushAutocompletePlayers(TabCompleteEvent event) {
+    public static void pushAutocompletePlayers(@NonNull TabCompleteEvent event) {
         String filter = event.getCursor().substring(event.getCursor().lastIndexOf(' ') + 1);
         event.getSuggestions().addAll(getOnlinePlayersByFilter(filter));
     }
@@ -30,7 +31,7 @@ public class Util {
      * @param filter The filter to check against.
      * @return names The names of the players, alphabetically sorted.
      */
-    public static List<String> getOnlinePlayersByFilter(String filter) {
+    public static List<String> getOnlinePlayersByFilter(@NonNull String filter) {
         filter = filter.toLowerCase();
         List<String> names = new ArrayList<>();
         for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
