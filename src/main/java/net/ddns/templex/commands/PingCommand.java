@@ -5,6 +5,7 @@ import io.github.trulyfree.va.daemon.Daemon;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.util.Collections;
@@ -18,6 +19,9 @@ public class PingCommand extends TabbableCommand {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
+        if (!(commandSender instanceof ProxiedPlayer)) {
+            return;
+        }
         if (strings[1] == null) {
             strings[1] = "owner";
         }
