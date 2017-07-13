@@ -15,7 +15,9 @@ import java.util.Collections;
  */
 public class PingCommand extends TabbableCommand {
 
-    public PingCommand() {  super("ping","templex.ping");    }
+    public PingCommand() {
+        super("ping", "templex.ping");
+    }
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
@@ -55,5 +57,7 @@ public class PingCommand extends TabbableCommand {
     }
 
     @Override
-    public void handleTabCompleteEvent(TabCompleteEvent event) {    Util.pushAutocompletePlayers(event);    }
+    public void handleTabCompleteEvent(TabCompleteEvent event) {
+        Util.pushAutocompletePlayers(event);
+    }
 }

@@ -1,8 +1,8 @@
 package net.ddns.templex.commands.home;
 
-import net.ddns.templex.game.CoordinateTriad;
 import lombok.Getter;
 import lombok.NonNull;
+import net.ddns.templex.game.CoordinateTriad;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;

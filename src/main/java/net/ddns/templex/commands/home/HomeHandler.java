@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NonNull;
 import net.ddns.templex.TemplexAdditionsPlugin;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -62,11 +61,6 @@ public final class HomeHandler implements Listener {
         for (HomeSet homes : activeHomes.values()) {
             saveHomeSet(homes);
         }
-    }
-
-    @EventHandler(priority = EventPriority.NORMAL)
-    public void onChatEvent(ChatEvent event) {
-        plugin.getLogger().info(event.getMessage());
     }
 
     @EventHandler(priority = EventPriority.NORMAL)

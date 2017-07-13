@@ -8,6 +8,7 @@ import net.ddns.templex.commands.ListCommand;
 import net.ddns.templex.commands.SurvivalCommand;
 import net.ddns.templex.commands.TPACommand;
 import net.ddns.templex.commands.home.HomeHandler;
+import net.ddns.templex.handlers.DaemonChatListener;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class TemplexAdditionsPlugin extends Plugin {
@@ -18,10 +19,14 @@ public class TemplexAdditionsPlugin extends Plugin {
     @Getter
     private ConfigHandler configHandler;
 
+    @Getter
+    private DaemonChatListener daemonChatListener;
+
     @Override
     public void onEnable() {
         super.onEnable();
         homeHandler = new HomeHandler(this);
+        daemonChatListener = new DaemonChatListener(this);
         TabbableCommand[] commands = new TabbableCommand[]{
                 new HelloCommand(),
                 new TPACommand(),
@@ -37,6 +42,7 @@ public class TemplexAdditionsPlugin extends Plugin {
             getProxy().getPluginManager().registerCommand(this, command);
         }
         getProxy().getPluginManager().registerListener(this, homeHandler);
+        getProxy().getPluginManager().registerListener(this, daemonChatListener);
         this.configHandler = new ConfigHandler(this);
     }
 
@@ -44,7 +50,7 @@ public class TemplexAdditionsPlugin extends Plugin {
     public void onDisable() {
         super.onDisable();
         getProxy().getPluginManager().unregisterCommands(this);
-        getProxy().getPluginManager().unregisterListener(homeHandler);
+        getProxy().getPluginManager().unregisterListeners(this);
         this.configHandler = null;
     }
 }

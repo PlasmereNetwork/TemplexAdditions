@@ -15,11 +15,12 @@ import java.util.Collections;
  */
 public class ListCommand extends TabbableCommand {
 
-    public ListCommand() { super("ls","templex.ls"); }
-
     private String all;
     private String staff;
     private String nstaff;
+    public ListCommand() {
+        super("ls", "templex.ls");
+    }
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
@@ -30,7 +31,7 @@ public class ListCommand extends TabbableCommand {
         staff = "@a[name=!VADaemon,tag=OP]";
         nstaff = "@a[name=!VADaemon,tag=!OP]";
         if (strings[1] == null) {
-            try{
+            try {
                 Daemon.getInstance().submitCommands(Collections.singletonList("/scoreboard players reset Z List"));
                 Daemon.getInstance().submitCommands(Collections.singletonList("/execute " + all + " ~ ~ ~ scoreboard players add Z List 1"));
                 Daemon.getInstance().submitCommands(Collections.singletonList("/tellraw " + commandSender + " [{\"text\":\"There are currently\",\"color\":\"green\"},{\"text\":\": \",\"color\":\"dark_gray\"},{\"score\":{\"name\":\"Z\",\"objective\":\"List\"},\"color\":\"gold\"},{\"text\":\" players on \",\"color\":\"green\"},{\"text\":\"Templex\",\"color\":\"dark_aqua\"},{\"text\":\"!\",\"color\":\"dark_gray\"},{\"text\":\"\\nPlayers online\":\"color\":\"green\"},{\"text\":\": \",\"color\":\"dark_gray\"},{\"selector\":\"" + all + "\"}]"));
@@ -39,7 +40,7 @@ public class ListCommand extends TabbableCommand {
             }
         }
         if (strings[1] == "all") {
-            try{
+            try {
                 Daemon.getInstance().submitCommands(Collections.singletonList("/scoreboard players reset Z List"));
                 Daemon.getInstance().submitCommands(Collections.singletonList("/execute " + all + " ~ ~ ~ scoreboard players add Z List 1"));
                 Daemon.getInstance().submitCommands(Collections.singletonList("/tellraw " + commandSender + " [{\"text\":\"There are currently\",\"color\":\"green\"},{\"text\":\": \",\"color\":\"dark_gray\"},{\"score\":{\"name\":\"Z\",\"objective\":\"List\"},\"color\":\"gold\"},{\"text\":\" players on \",\"color\":\"green\"},{\"text\":\"Templex\",\"color\":\"dark_aqua\"},{\"text\":\"!\",\"color\":\"dark_gray\"},{\"text\":\"\\nPlayers online\":\"color\":\"green\"},{\"text\":\": \",\"color\":\"dark_gray\"},{\"selector\":\"" + all + "\"}]"));
@@ -57,7 +58,7 @@ public class ListCommand extends TabbableCommand {
             }
         }
         if (strings[1] == "nonstaff") {
-            try{
+            try {
                 Daemon.getInstance().submitCommands(Collections.singletonList("/scoreboard players reset Z List"));
                 Daemon.getInstance().submitCommands(Collections.singletonList("/execute " + nstaff + " ~ ~ ~ scoreboard players add Z List 1"));
                 Daemon.getInstance().submitCommands(Collections.singletonList("/tellraw " + commandSender + " [{\"text\":\"There are currently\",\"color\":\"green\"},{\"text\":\": \",\"color\":\"dark_gray\"},{\"score\":{\"name\":\"Z\",\"objective\":\"List\"},\"color\":\"gold\"},{\"text\":\" players on \",\"color\":\"green\"},{\"text\":\"Templex\",\"color\":\"dark_aqua\"},{\"text\":\"!\",\"color\":\"dark_gray\"},{\"text\":\"\\nPlayers online\":\"color\":\"green\"},{\"text\":\": \",\"color\":\"dark_gray\"},{\"selector\":\"" + nstaff + "\"}]"));
@@ -71,6 +72,8 @@ public class ListCommand extends TabbableCommand {
     }
 
     @Override
-    public void handleTabCompleteEvent(TabCompleteEvent event) { Util.pushAutocompletePlayers(event); }
+    public void handleTabCompleteEvent(TabCompleteEvent event) {
+        Util.pushAutocompletePlayers(event);
+    }
 
 }

@@ -1,13 +1,12 @@
 package net.ddns.templex.commands.home;
 
-import net.ddns.templex.commands.Util;
-import net.ddns.templex.game.CoordinateTriad;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import lombok.NonNull;
+import net.ddns.templex.commands.Util;
+import net.ddns.templex.game.CoordinateTriad;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;

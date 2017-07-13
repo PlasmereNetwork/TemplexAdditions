@@ -1,10 +1,10 @@
 package net.ddns.templex.commands;
 
-import net.ddns.templex.TemplexAdditionsPlugin;
-import net.ddns.templex.game.CoordinateTriad;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import lombok.NonNull;
+import net.ddns.templex.TemplexAdditionsPlugin;
+import net.ddns.templex.game.CoordinateTriad;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
