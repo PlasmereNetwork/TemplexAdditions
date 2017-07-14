@@ -35,7 +35,7 @@ public final class HomeHandler implements Listener {
             public HomeSet call() throws Exception {
                 HomeSet set = null;
                 try {
-                    set = plugin.getConfigHandler().getConfig(String.format("homes%s%s.json", File.separator, owner.toString()), HomeSet.class);
+                    set = plugin.getConfigHandler().getConfig(String.format("homes%s%s.json", File.separator, owner.getUniqueId()), HomeSet.class);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -51,7 +51,8 @@ public final class HomeHandler implements Listener {
                 try {
                     new File(plugin.getDataFolder(), "homes").mkdirs();
                     plugin.getConfigHandler().saveConfig(String.format("homes%s%s.json", File.separator, homes.getOwner().toString()), homes);
-                } catch (IOException ignored) {
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });

@@ -23,7 +23,7 @@ public class RTPCommand extends TabbableCommand {
     private final CoordinatePair center;
 
     public RTPCommand(@NonNull TemplexAdditionsPlugin plugin) {
-        super("rtp", "templex.rtp");
+        super("rtp");
         CoordinatePair center;
         try {
             center = plugin.getConfigHandler().getConfig("rtp.json", CoordinateTriad.class);
@@ -41,6 +41,7 @@ public class RTPCommand extends TabbableCommand {
         }
         if (center == null) {
             commandSender.sendMessage(new ComponentBuilder("RTP center coordinates were not specified! Contact an administrator.").color(ChatColor.RED).create());
+            return;
         }
         try {
             // TODO RTP-count checking?

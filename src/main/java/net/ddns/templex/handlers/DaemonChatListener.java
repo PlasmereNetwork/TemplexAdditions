@@ -1,26 +1,26 @@
 package net.ddns.templex.handlers;
 
 import com.google.common.util.concurrent.FutureCallback;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import io.github.trulyfree.va.events.DaemonChatEvent;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import net.ddns.templex.TemplexAdditionsPlugin;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public class DaemonChatListener implements Listener {
 
+    private final JsonParser parser;
     private final TemplexAdditionsPlugin plugin;
-    private final ConcurrentHashMap<StringEqualizer, FutureCallback<String>> awaiting;
+    private final ConcurrentHashMap<Matcher, FutureCallback<JsonObject>> awaiting;
     private final ScheduledExecutorService timeoutHandler;
 
     public DaemonChatListener(final @NonNull TemplexAdditionsPlugin plugin) {
+        this.parser = new JsonParser();
         this.plugin = plugin;
         this.awaiting = new ConcurrentHashMap<>();
         this.timeoutHandler = Executors.newSingleThreadScheduledExecutor();
@@ -28,34 +28,29 @@ public class DaemonChatListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onDaemonChatEvent(DaemonChatEvent event) {
-        for (FutureCallback<String> found; (found = awaiting.remove(new StringEqualizer(event.getMessage()))) != null; ) {
-            found.onSuccess(event.getMessage());
+        plugin.getLogger().info(event.getMessage());
+        JsonObject json = parser.parse(event.getMessage()).getAsJsonObject();
+        for (ConcurrentHashMap.Entry<Matcher, FutureCallback<JsonObject>> entry : awaiting.entrySet()) {
+            if (entry.getKey().matches(json)) {
+                awaiting.remove(entry.getKey()).onSuccess(json);
+            }
         }
     }
 
-    public void await(@NonNull final String toMatch, @NonNull final FutureCallback<String> callback) {
-        final StringEqualizer equalizer = new StringEqualizer(toMatch);
-        awaiting.put(equalizer, callback);
+    public void await(@NonNull final Matcher matcher, @NonNull final FutureCallback<JsonObject> callback) {
+        awaiting.put(matcher, callback);
         timeoutHandler.schedule(new Runnable() {
             @Override
             public void run() {
-                if (awaiting.remove(equalizer, callback)) {
+                if (awaiting.remove(matcher, callback)) {
                     callback.onFailure(null);
                 }
             }
         }, 10, TimeUnit.SECONDS);
     }
 
-    @AllArgsConstructor
-    private class StringEqualizer {
-
-        private final @NonNull
-        String toMatch;
-
-        public boolean equals(Object object) {
-            return object instanceof StringEqualizer && ((StringEqualizer) object).toMatch.matches(this.toMatch);
-        }
-
+    public interface Matcher {
+        boolean matches(JsonObject object);
     }
 
 }

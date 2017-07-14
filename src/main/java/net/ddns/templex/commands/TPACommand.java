@@ -29,7 +29,7 @@ public class TPACommand extends TabbableCommand {
     private final ScheduledExecutorService requestManager;
 
     public TPACommand() {
-        super("tpa", "templex.tpa");
+        super("tpa");
         this.requests = new ConcurrentHashMap<>();
         requestManager = Executors.newSingleThreadScheduledExecutor();
     }

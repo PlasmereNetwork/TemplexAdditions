@@ -22,7 +22,7 @@ public class SpawnCommand extends TabbableCommand {
     private final CoordinateTriad spawn;
 
     public SpawnCommand(@NonNull TemplexAdditionsPlugin plugin) {
-        super("spawn", "templex.spawn", "sp");
+        super("spawn");
         CoordinateTriad spawn;
         try {
             spawn = plugin.getConfigHandler().getConfig("end.json", CoordinateTriad.class);
@@ -40,6 +40,7 @@ public class SpawnCommand extends TabbableCommand {
         }
         if (spawn == null) {
             commandSender.sendMessage(new ComponentBuilder("Spawn coordinates were not specified! Contact an administrator.").color(ChatColor.RED).create());
+            return;
         }
         try {
             Daemon.getInstance().submitCommands(Collections.singletonList("/tp " + commandSender.getName() + " " + spawn));
