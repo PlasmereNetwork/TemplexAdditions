@@ -28,13 +28,13 @@ public class TemplexAdditionsPlugin extends Plugin {
         daemonChatListener = new DaemonChatListener(this);
         this.configHandler = new ConfigHandler(this);
         TabbableCommand[] commands = new TabbableCommand[]{
-                new HelloCommand(),
-                new TPACommand(),
-                new SurvivalCommand(),
-                new SpawnCommand(this),
-                new RTPCommand(this),
-                new HomeCommand(homeHandler), // TODO
                 new EndCommand(this),
+                new HelloCommand(),
+                new RTPCommand(this),
+                new SpawnCommand(this),
+                new SurvivalCommand(),
+                new TPACommand(),
+                new HomeCommand(homeHandler), // TODO
                 new SetHomeCommand(homeHandler), // TODO
         };
         for (TabbableCommand command : commands) {
