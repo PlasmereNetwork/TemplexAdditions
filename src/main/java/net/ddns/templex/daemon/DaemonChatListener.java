@@ -1,4 +1,4 @@
-package net.ddns.templex.handlers;
+package net.ddns.templex.daemon;
 
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.gson.JsonObject;

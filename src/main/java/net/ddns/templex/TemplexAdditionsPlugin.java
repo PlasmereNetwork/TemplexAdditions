@@ -7,7 +7,8 @@ import net.ddns.templex.commands.*;
 import net.ddns.templex.commands.home.HomeCommand;
 import net.ddns.templex.commands.home.HomeHandler;
 import net.ddns.templex.commands.home.SetHomeCommand;
-import net.ddns.templex.handlers.DaemonChatListener;
+import net.ddns.templex.daemon.DaemonChatListener;
+import net.ddns.templex.ping.PingListener;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class TemplexAdditionsPlugin extends Plugin {
@@ -21,11 +22,15 @@ public class TemplexAdditionsPlugin extends Plugin {
     @Getter
     private DaemonChatListener daemonChatListener;
 
+    @Getter
+    private PingListener pingListener;
+
     @Override
     public void onEnable() {
         super.onEnable();
         homeHandler = new HomeHandler(this);
         daemonChatListener = new DaemonChatListener(this);
+        pingListener = new PingListener();
         this.configHandler = new ConfigHandler(this);
         TabbableCommand[] commands = new TabbableCommand[]{
                 new EndCommand(this),
@@ -42,6 +47,7 @@ public class TemplexAdditionsPlugin extends Plugin {
         }
         getProxy().getPluginManager().registerListener(this, homeHandler);
         getProxy().getPluginManager().registerListener(this, daemonChatListener);
+        getProxy().getPluginManager().registerListener(this, pingListener);
     }
 
     @Override
