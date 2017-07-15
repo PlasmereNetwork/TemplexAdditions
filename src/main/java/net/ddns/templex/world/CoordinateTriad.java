@@ -1,4 +1,4 @@
-package net.ddns.templex.game;
+package net.ddns.templex.world;
 
 import lombok.Getter;
 

@@ -8,7 +8,6 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Used for to change someone's gamemode to survival.

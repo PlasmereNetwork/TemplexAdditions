@@ -4,7 +4,7 @@ import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import lombok.NonNull;
 import net.ddns.templex.TemplexAdditionsPlugin;
-import net.ddns.templex.game.CoordinateTriad;
+import net.ddns.templex.world.CoordinateTriad;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -13,7 +13,6 @@ import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
  * Tps players to the End on the Templex server.

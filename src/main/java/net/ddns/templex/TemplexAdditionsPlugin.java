@@ -8,7 +8,9 @@ import net.ddns.templex.commands.home.HomeCommand;
 import net.ddns.templex.commands.home.HomeHandler;
 import net.ddns.templex.commands.home.SetHomeCommand;
 import net.ddns.templex.daemon.DaemonChatListener;
+import net.ddns.templex.login.PlayerLoginListener;
 import net.ddns.templex.ping.PingListener;
+import net.md_5.bungee.api.event.PlayerDisconnectEvent;
 import net.md_5.bungee.api.plugin.Plugin;
 
 public class TemplexAdditionsPlugin extends Plugin {
@@ -25,21 +27,26 @@ public class TemplexAdditionsPlugin extends Plugin {
     @Getter
     private PingListener pingListener;
 
+    @Getter
+    private PlayerLoginListener loginListener;
+
     @Override
     public void onEnable() {
         super.onEnable();
-        homeHandler = new HomeHandler(this);
-        daemonChatListener = new DaemonChatListener(this);
-        pingListener = new PingListener();
+        this.homeHandler = new HomeHandler(this);
         this.configHandler = new ConfigHandler(this);
+        this.daemonChatListener = new DaemonChatListener(this);
+        this.pingListener = new PingListener();
+        this.loginListener = new PlayerLoginListener(this);
         TabbableCommand[] commands = new TabbableCommand[]{
+                new BanIPCommand(this),
                 new EndCommand(this),
                 new RTPCommand(this),
                 new SpawnCommand(this),
                 new SurvivalCommand(),
                 new TPACommand(),
-                new HomeCommand(homeHandler), // TODO
-                new SetHomeCommand(homeHandler), // TODO
+                new HomeCommand(homeHandler),
+                new SetHomeCommand(homeHandler),
         };
         for (TabbableCommand command : commands) {
             getProxy().getPluginManager().registerCommand(this, command);
@@ -47,6 +54,7 @@ public class TemplexAdditionsPlugin extends Plugin {
         getProxy().getPluginManager().registerListener(this, homeHandler);
         getProxy().getPluginManager().registerListener(this, daemonChatListener);
         getProxy().getPluginManager().registerListener(this, pingListener);
+        getProxy().getPluginManager().registerListener(this, loginListener);
     }
 
     @Override
