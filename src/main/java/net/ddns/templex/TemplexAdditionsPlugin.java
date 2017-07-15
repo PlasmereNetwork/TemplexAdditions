@@ -40,6 +40,7 @@ public class TemplexAdditionsPlugin extends Plugin {
         this.loginListener = new PlayerLoginListener(this);
         TabbableCommand[] commands = new TabbableCommand[]{
                 new BanIPCommand(this),
+                new DaemonizeCommand(),
                 new EndCommand(this),
                 new RTPCommand(this),
                 new SpawnCommand(this),
