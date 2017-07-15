@@ -34,7 +34,6 @@ public class TemplexAdditionsPlugin extends Plugin {
         this.configHandler = new ConfigHandler(this);
         TabbableCommand[] commands = new TabbableCommand[]{
                 new EndCommand(this),
-                new HelloCommand(),
                 new RTPCommand(this),
                 new SpawnCommand(this),
                 new SurvivalCommand(),
