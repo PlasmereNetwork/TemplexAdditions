@@ -54,6 +54,7 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new SpawnCommand(this),
                 new SurvivalCommand(),
                 new TPACommand(),
+                new TPAHereCommand(),
                 new HomeCommand(homeHandler),
                 new SetHomeCommand(homeHandler)
         );
