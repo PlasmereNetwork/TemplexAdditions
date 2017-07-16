@@ -64,7 +64,7 @@ public class TPACommand extends TabbableCommand {
         if (requests.containsKey(executor)) {
             commandSender.sendMessage(new ComponentBuilder("You already have an active request.").color(ChatColor.RED).create());
         } else {
-            ProxiedPlayer requested = proxy.getPlayer(strings[0]);
+            final ProxiedPlayer requested = proxy.getPlayer(strings[0]);
             if (requested == null) {
                 commandSender.sendMessage(new ComponentBuilder("Didn't recognize the name " + strings[0] + ".").color(ChatColor.RED).create());
             } else {
@@ -76,7 +76,7 @@ public class TPACommand extends TabbableCommand {
                     public void run() {
                         if (requests.remove(executor) != null) {
                             commandSender.sendMessage(new ComponentBuilder("Request timed out.").color(ChatColor.RED).create());
-                            executor.sendMessage(new ComponentBuilder("Request timed out.").color(ChatColor.RED).create());
+                            requested.sendMessage(new ComponentBuilder("Request from" + commandSender + " timed out.").color(ChatColor.RED).create());
                         }
                     }
                 } , 10, TimeUnit.SECONDS);
