@@ -8,6 +8,7 @@ import net.ddns.templex.commands.*;
 import net.ddns.templex.commands.home.HomeCommand;
 import net.ddns.templex.commands.home.HomeHandler;
 import net.ddns.templex.commands.home.SetHomeCommand;
+import net.ddns.templex.commands.setspawn.SetSpawnCommand;
 import net.ddns.templex.daemon.DaemonChatListener;
 import net.ddns.templex.login.PlayerLoginListener;
 import net.ddns.templex.ping.PingListener;
@@ -55,7 +56,8 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new SurvivalCommand(),
                 new TPACommand(),
                 new HomeCommand(homeHandler),
-                new SetHomeCommand(homeHandler)
+                new SetHomeCommand(homeHandler),
+                new SetSpawnCommand()
         );
         for (TabbableCommand command : addedCommands) {
             getProxy().getPluginManager().registerCommand(this, command);
