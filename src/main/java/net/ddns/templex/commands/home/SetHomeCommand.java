@@ -20,7 +20,7 @@ public class SetHomeCommand extends TabbableCommand {
     private final HomeHandler handler;
 
     public SetHomeCommand(@NonNull HomeHandler handler) {
-        super("sethome");
+        super("sethome", "templex.nonop");
         this.handler = handler;
     }
 

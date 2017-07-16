@@ -16,7 +16,7 @@ import java.util.Collections;
 public class RTPCommand extends TabbableCommand {
 
     public RTPCommand() {
-        super("rtp");
+        super("rtp", "templex.nonop");
     }
 
     @Override

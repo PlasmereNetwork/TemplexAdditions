@@ -56,6 +56,7 @@ public class PlayerLoginListener implements Listener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                player.setPermission("templex.nonop", true);
             }
         });
     }

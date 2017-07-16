@@ -17,7 +17,7 @@ public class HomeCommand extends TabbableCommand {
     private final HomeHandler handler;
 
     public HomeCommand(@NonNull HomeHandler handler) {
-        super("home");
+        super("home", "templex.nonop");
         this.handler = handler;
     }
 
