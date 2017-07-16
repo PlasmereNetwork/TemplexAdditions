@@ -76,10 +76,10 @@ public class TPACommand extends TabbableCommand {
                     public void run() {
                         if (requests.remove(executor) != null) {
                             commandSender.sendMessage(new ComponentBuilder("Request timed out.").color(ChatColor.RED).create());
-                            requested.sendMessage(new ComponentBuilder("Request from" + commandSender + " timed out.").color(ChatColor.RED).create());
+                            requested.sendMessage(new ComponentBuilder("Request from " + commandSender.getName() + " timed out.").color(ChatColor.RED).create());
                         }
                     }
-                } , 10, TimeUnit.SECONDS);
+                }, 10, TimeUnit.SECONDS);
             }
         }
     }
