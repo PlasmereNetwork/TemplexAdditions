@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="EntryPointsManager">
+    <pattern value="net.ddns.templex.mc.config.BannedIPs" />
+    <pattern value="net.ddns.templex.chat.ChatListener" method="onChatEvent" />
+    <pattern value="net.ddns.templex.daemon.DaemonChatListener" method="onDaemonChatEvent" />
+    <pattern value="net.ddns.templex.commands.home.HomeHandler" method="onPostLoginEvent" />
+    <pattern value="net.ddns.templex.commands.home.HomeHandler" method="onPlayerDisconnectEvent" />
+    <pattern value="net.ddns.templex.mc.config.OPs" />
+    <pattern value="net.ddns.templex.ping.PingListener" method="onProxyPingEvent" />
+    <pattern value="net.ddns.templex.login.PlayerLoginListener" method="onPreLoginEvent" />
+    <pattern value="net.ddns.templex.login.PlayerLoginListener" method="onPostLoginEvent" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>

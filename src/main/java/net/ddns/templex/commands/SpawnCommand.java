@@ -44,7 +44,14 @@ public class SpawnCommand extends TabbableCommand {
         }
         try {
             Daemon.getInstance().submitCommands(Collections.singletonList("/tp " + commandSender.getName() + " " + spawn));
-            commandSender.sendMessage(new ComponentBuilder("You have been successfully tped to Spawn!").color(ChatColor.GREEN).create());
+            CommandUtil.tellOps(
+                    new ComponentBuilder("Spawn System ").color(ChatColor.GOLD)
+                            .append(": ").color(ChatColor.DARK_GRAY)
+                            .append("Successfully teleported ").color(ChatColor.RED)
+                            .append(commandSender.getName()).color(ChatColor.GRAY)
+                            .append(" to Spawn!").color(ChatColor.RED).create()
+            );
+            commandSender.sendMessage(new ComponentBuilder("You have been successfully teleported to Spawn!").color(ChatColor.GREEN).create());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -52,7 +59,7 @@ public class SpawnCommand extends TabbableCommand {
 
     @Override
     public void handleTabCompleteEvent(TabCompleteEvent event) {
-        Util.pushAutocompletePlayers(event);
+        CommandUtil.pushAutocompletePlayers(event);
     }
 
 }

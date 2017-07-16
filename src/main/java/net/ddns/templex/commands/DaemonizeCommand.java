@@ -8,9 +8,6 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 
 import java.util.Collections;
 
-/**
- * Created by vtcakavsmoace on 7/15/17.
- */
 public class DaemonizeCommand extends TabbableCommand {
 
     public DaemonizeCommand() {

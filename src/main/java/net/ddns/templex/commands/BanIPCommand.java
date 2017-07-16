@@ -3,7 +3,6 @@ package net.ddns.templex.commands;
 import com.google.common.net.InetAddresses;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
-import net.ddns.templex.TemplexAdditionsPlugin;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -12,16 +11,12 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class BanIPCommand extends TabbableCommand {
 
-    private final TemplexAdditionsPlugin plugin;
-
-    public BanIPCommand(TemplexAdditionsPlugin plugin) {
+    public BanIPCommand() {
         super("ban-ip", "templex.op");
-        this.plugin = plugin;
     }
 
     @Override

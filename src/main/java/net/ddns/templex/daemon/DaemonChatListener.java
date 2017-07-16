@@ -30,14 +30,19 @@ public class DaemonChatListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onDaemonChatEvent(DaemonChatEvent event) {
-        plugin.getLogger().info(event.getMessage());
-        JsonObject json = parser.parse(event.getMessage()).getAsJsonObject();
-        for (ConcurrentHashMap.Entry<Matcher, FutureCallback<JsonObject>> entry : awaiting.entrySet()) {
-            if (entry.getKey().matches(json)) {
-                awaiting.remove(entry.getKey()).onSuccess(json);
+    public void onDaemonChatEvent(final DaemonChatEvent event) {
+        plugin.getBackgroundExecutor().submit(new Runnable() {
+            @Override
+            public void run() {
+                plugin.getLogger().info(event.getMessage());
+                JsonObject json = parser.parse(event.getMessage()).getAsJsonObject();
+                for (ConcurrentHashMap.Entry<Matcher, FutureCallback<JsonObject>> entry : awaiting.entrySet()) {
+                    if (entry.getKey().matches(json)) {
+                        awaiting.remove(entry.getKey()).onSuccess(json);
+                    }
+                }
             }
-        }
+        });
     }
 
     public void await(@NonNull final Matcher matcher, @NonNull final FutureCallback<JsonObject> callback) {

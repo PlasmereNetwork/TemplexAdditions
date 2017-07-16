@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import net.ddns.templex.TemplexAdditionsPlugin;
 import net.ddns.templex.mc.config.BannedIPs;
 import net.ddns.templex.mc.config.OPs;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.event.PreLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -12,7 +13,6 @@ import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
 
 import java.io.IOException;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 public class PlayerLoginListener implements Listener {
@@ -39,20 +39,25 @@ public class PlayerLoginListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPostLoginEvent(PostLoginEvent event) {
-        try {
-            OPs ops = plugin.getConfigHandler().getConfig("ops.json", OPs.class);
-            for (OPs.OPsEntry entry : ops) {
-                if (event.getPlayer().getName().equals(entry.getName())) {
-                    event.getPlayer().setPermission("templex.op", true);
-                    plugin.getLogger().info(String.format("Marked %s as an operator.", event.getPlayer().getName()));
-                    return;
+        final ProxiedPlayer player = event.getPlayer();
+        plugin.getBackgroundExecutor().submit(new Runnable() {
+            public void run() {
+                try {
+                    OPs ops = plugin.getConfigHandler().getConfig("ops.json", OPs.class);
+                    for (OPs.OPsEntry entry : ops) {
+                        if (player.getName().equals(entry.getName())) {
+                            player.setPermission("templex.op", true);
+                            plugin.getLogger().info(String.format("Marked %s as an operator.", player.getName()));
+                            return;
+                        }
+                    }
+                    player.setPermission("templex.op", false);
+                    plugin.getLogger().info(String.format("Marked %s as not an operator.", player.getName()));
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-            event.getPlayer().setPermission("templex.op", false);
-            plugin.getLogger().info(String.format("Marked %s as not an operator.", event.getPlayer().getName()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
 }

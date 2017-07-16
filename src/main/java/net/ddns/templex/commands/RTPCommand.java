@@ -2,17 +2,12 @@ package net.ddns.templex.commands;
 
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
-import lombok.NonNull;
-import net.ddns.templex.TemplexAdditionsPlugin;
-import net.ddns.templex.world.CoordinatePair;
-import net.ddns.templex.world.CoordinateTriad;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
-import java.io.IOException;
 import java.util.Collections;
 
 /**
@@ -20,18 +15,8 @@ import java.util.Collections;
  */
 public class RTPCommand extends TabbableCommand {
 
-    private final CoordinatePair center;
-
-    public RTPCommand(@NonNull TemplexAdditionsPlugin plugin) {
+    public RTPCommand() {
         super("rtp");
-        CoordinatePair center;
-        try {
-            center = plugin.getConfigHandler().getConfig("rtp.json", CoordinateTriad.class);
-        } catch (IOException e) {
-            center = null;
-            e.printStackTrace();
-        }
-        this.center = center;
     }
 
     @Override
@@ -39,14 +24,16 @@ public class RTPCommand extends TabbableCommand {
         if (!(commandSender instanceof ProxiedPlayer)) {
             return;
         }
-        if (center == null) {
-            commandSender.sendMessage(new ComponentBuilder("RTP center coordinates were not specified! Contact an administrator.").color(ChatColor.RED).create());
-            return;
-        }
         try {
-            // TODO RTP-count checking?
-            Daemon.getInstance().submitCommands(Collections.singletonList("/spreadplayers  " + center + " 700000 2000000 false " + commandSender.getName()));
-            commandSender.sendMessage(new ComponentBuilder("You have been successfully randomly tped!").color(ChatColor.GREEN).create());
+            Daemon.getInstance().submitCommands(Collections.singletonList("/spreadplayers  ~ ~ 700000 2000000 false " + commandSender.getName()));
+            CommandUtil.tellOps(
+                    new ComponentBuilder("RTP System ").color(ChatColor.GOLD)
+                            .append(": ").color(ChatColor.DARK_GRAY)
+                            .append("Successfully RTPed ").color(ChatColor.RED)
+                            .append(commandSender.getName()).color(ChatColor.GRAY)
+                            .append("!").color(ChatColor.RED).create()
+            );
+            commandSender.sendMessage(new ComponentBuilder("You have been successfully randomly teleported!").color(ChatColor.GREEN).create());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -54,7 +41,7 @@ public class RTPCommand extends TabbableCommand {
 
     @Override
     public void handleTabCompleteEvent(TabCompleteEvent event) {
-        Util.pushAutocompletePlayers(event);
+        CommandUtil.pushAutocompletePlayers(event);
     }
 
 }

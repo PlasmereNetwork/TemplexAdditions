@@ -29,7 +29,7 @@ public final class HomeHandler implements Listener {
         this.activeHomes = new ConcurrentHashMap<>();
     }
 
-    public HomeSet loadHomeSet(final ProxiedPlayer owner) throws ExecutionException, InterruptedException {
+    private HomeSet loadHomeSet(final ProxiedPlayer owner) throws ExecutionException, InterruptedException {
         return this.homeSaverThread.submit(new Callable<HomeSet>() {
             @Override
             public HomeSet call() throws Exception {
@@ -49,6 +49,7 @@ public final class HomeHandler implements Listener {
             @Override
             public void run() {
                 try {
+                    //noinspection ResultOfMethodCallIgnored
                     new File(plugin.getDataFolder(), "homes").mkdirs();
                     plugin.getConfigHandler().saveConfig(String.format("homes%s%s.json", File.separator, homes.getOwner().toString()), homes);
                 } catch (IOException e) {

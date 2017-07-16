@@ -1,7 +1,9 @@
 package net.ddns.templex.commands;
 
 import lombok.NonNull;
+import net.ddns.templex.player.PlayerUtil;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
@@ -9,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Util {
+class CommandUtil {
 
-    private Util() {
+    private CommandUtil() {
         throw new UnsupportedOperationException("Instantiation is not permitted.");
     }
 
@@ -41,6 +43,12 @@ public class Util {
         }
         Collections.sort(names);
         return names;
+    }
+
+    public static void tellOps(BaseComponent... components) {
+        for (ProxiedPlayer op : PlayerUtil.getOnlineOps()) {
+            op.sendMessage(components);
+        }
     }
 
 }

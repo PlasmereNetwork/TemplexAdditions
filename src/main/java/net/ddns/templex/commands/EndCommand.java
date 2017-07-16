@@ -12,7 +12,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Tps players to the End on the Templex server.
@@ -43,10 +43,15 @@ public class EndCommand extends TabbableCommand {
             return;
         }
         try {
-            Daemon.getInstance().submitCommands(Arrays.asList(
-                    String.format("/tp %s %s", commandSender.getName(), endPortalCoordinates),
-                    String.format("/tellraw @a[tag=OP] [{\"text\":\"\\u00A76TP End \\u00A78: \\u00A7cSuccessfully tped \\u00A77%s to the End!\",\"color\":\"red\"}]", commandSender.getName())));
-            commandSender.sendMessage(new ComponentBuilder("Successfully tped to the End!").color(ChatColor.GREEN).create());
+            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/tp %s %s", commandSender.getName(), endPortalCoordinates)));
+            CommandUtil.tellOps(
+                    new ComponentBuilder("TP End ").color(ChatColor.GOLD)
+                            .append(": ").color(ChatColor.DARK_GRAY)
+                            .append("Successfully TPed ").color(ChatColor.RED)
+                            .append(commandSender.getName()).color(ChatColor.GRAY)
+                            .append(" to the End!").color(ChatColor.RED).create()
+            );
+            commandSender.sendMessage(new ComponentBuilder("Successfully teleported to the End!").color(ChatColor.GREEN).create());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -54,7 +59,7 @@ public class EndCommand extends TabbableCommand {
 
     @Override
     public void handleTabCompleteEvent(TabCompleteEvent event) {
-        Util.pushAutocompletePlayers(event);
+        CommandUtil.pushAutocompletePlayers(event);
     }
 
 }

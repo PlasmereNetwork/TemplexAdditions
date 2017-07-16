@@ -40,11 +40,11 @@ public class TPACommand extends TabbableCommand {
             return;
         }
         ProxyServer proxy = ProxyServer.getInstance();
-        final ProxiedPlayer enacter = (ProxiedPlayer) commandSender;
+        final ProxiedPlayer executor = (ProxiedPlayer) commandSender;
         if (strings.length == 0) {
             ProxiedPlayer target = null;
             for (Map.Entry<ProxiedPlayer, ProxiedPlayer> entry : requests.entrySet()) {
-                if (entry.getValue().equals(enacter)) {
+                if (entry.getValue().equals(executor)) {
                     target = entry.getKey();
                     break;
                 }
@@ -54,14 +54,14 @@ public class TPACommand extends TabbableCommand {
             } else {
                 requests.remove(target);
                 try {
-                    Daemon.getInstance().submitCommands(Collections.singletonList("/tp " + target.getName() + " " + enacter.getName()));
+                    Daemon.getInstance().submitCommands(Collections.singletonList("/tp " + target.getName() + " " + executor.getName()));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
             return;
         }
-        if (requests.containsKey(enacter)) {
+        if (requests.containsKey(executor)) {
             commandSender.sendMessage(new ComponentBuilder("You already have an active request.").color(ChatColor.RED).create());
         } else {
             ProxiedPlayer requested = proxy.getPlayer(strings[0]);
@@ -70,11 +70,11 @@ public class TPACommand extends TabbableCommand {
             } else {
                 commandSender.sendMessage(new ComponentBuilder("Request sent to " + strings[0]).create());
                 requested.sendMessage(new ComponentBuilder(commandSender.getName() + " requested a TP to you! Type /tpa to accept.").color(ChatColor.GREEN).create());
-                requests.put(enacter, requested);
+                requests.put(executor, requested);
                 requestManager.schedule(new Runnable() {
                     @Override
                     public void run() {
-                        if (requests.remove(enacter) != null) {
+                        if (requests.remove(executor) != null) {
                             commandSender.sendMessage(new ComponentBuilder("Request timed out.").color(ChatColor.RED).create());
                         }
                     }
@@ -85,6 +85,6 @@ public class TPACommand extends TabbableCommand {
 
     @Override
     public void handleTabCompleteEvent(TabCompleteEvent event) {
-        Util.pushAutocompletePlayers(event);
+        CommandUtil.pushAutocompletePlayers(event);
     }
 }
