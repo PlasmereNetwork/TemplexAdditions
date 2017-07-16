@@ -68,17 +68,18 @@ public class TPACommand extends TabbableCommand {
             if (requested == null) {
                 commandSender.sendMessage(new ComponentBuilder("Didn't recognize the name " + strings[0] + ".").color(ChatColor.RED).create());
             } else {
-                commandSender.sendMessage(new ComponentBuilder("Request sent to " + strings[0]).create());
-                requested.sendMessage(new ComponentBuilder(commandSender.getName() + " requested a TP to you! Type /tpa to accept.").color(ChatColor.GREEN).create());
+                commandSender.sendMessage(new ComponentBuilder("Request sent to " + strings[0]).color(ChatColor.GREEN).create());
+                requested.sendMessage(new ComponentBuilder(commandSender.getName() + " requested a TP to you! Type /tpa to accept.").color(ChatColor.GOLD).create());
                 requests.put(executor, requested);
                 requestManager.schedule(new Runnable() {
                     @Override
                     public void run() {
                         if (requests.remove(executor) != null) {
                             commandSender.sendMessage(new ComponentBuilder("Request timed out.").color(ChatColor.RED).create());
+                            executor.sendMessage(new ComponentBuilder("Request timed out.").color(ChatColor.RED).create());
                         }
                     }
-                }, 10, TimeUnit.SECONDS);
+                } , 10, TimeUnit.SECONDS);
             }
         }
     }

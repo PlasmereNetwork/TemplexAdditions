@@ -27,7 +27,7 @@ public class RTPCommand extends TabbableCommand {
         try {
             Daemon.getInstance().submitCommands(Collections.singletonList("/spreadplayers  ~ ~ 700000 2000000 false " + commandSender.getName()));
             CommandUtil.tellOps(
-                    new ComponentBuilder("RTP System ").color(ChatColor.GOLD)
+                    new ComponentBuilder("RTP PL ").color(ChatColor.GOLD)
                             .append(": ").color(ChatColor.DARK_GRAY)
                             .append("Successfully RTPed ").color(ChatColor.RED)
                             .append(commandSender.getName()).color(ChatColor.GRAY)

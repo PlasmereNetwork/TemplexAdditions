@@ -45,7 +45,7 @@ public class SpawnCommand extends TabbableCommand {
         try {
             Daemon.getInstance().submitCommands(Collections.singletonList("/tp " + commandSender.getName() + " " + spawn));
             CommandUtil.tellOps(
-                    new ComponentBuilder("Spawn System ").color(ChatColor.GOLD)
+                    new ComponentBuilder("Spawn PL ").color(ChatColor.GOLD)
                             .append(": ").color(ChatColor.DARK_GRAY)
                             .append("Successfully teleported ").color(ChatColor.RED)
                             .append(commandSender.getName()).color(ChatColor.GRAY)
