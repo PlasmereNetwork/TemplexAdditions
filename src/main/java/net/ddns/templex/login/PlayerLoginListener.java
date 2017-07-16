@@ -44,15 +44,14 @@ public class PlayerLoginListener implements Listener {
             public void run() {
                 try {
                     OPs ops = plugin.getConfigHandler().getConfig("ops.json", OPs.class);
+                    player.setPermission("templex.op", false);
                     for (OPs.OPsEntry entry : ops) {
                         if (player.getName().equals(entry.getName())) {
                             player.setPermission("templex.op", true);
                             plugin.getLogger().info(String.format("Marked %s as an operator.", player.getName()));
-                            return;
+                            break;
                         }
                     }
-                    player.setPermission("templex.op", false);
-                    plugin.getLogger().info(String.format("Marked %s as not an operator.", player.getName()));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
