@@ -22,7 +22,7 @@ public class SpawnCommand extends TabbableCommand {
     private final CoordinateTriad spawn;
 
     public SpawnCommand(@NonNull TemplexAdditionsPlugin plugin) {
-        super("spawn", "templex.nonop");
+        super("spawn", "nonop");
         CoordinateTriad spawn;
         try {
             spawn = plugin.getConfigHandler().getConfig("end.json", CoordinateTriad.class);

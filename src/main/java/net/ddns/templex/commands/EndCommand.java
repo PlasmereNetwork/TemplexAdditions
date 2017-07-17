@@ -22,7 +22,7 @@ public class EndCommand extends TabbableCommand {
     private final CoordinateTriad endPortalCoordinates;
 
     public EndCommand(@NonNull TemplexAdditionsPlugin plugin) {
-        super("end", "templex.nonop");
+        super("end", "nonop");
         CoordinateTriad endPortalCoordinates;
         try {
             endPortalCoordinates = plugin.getConfigHandler().getConfig("end.json", CoordinateTriad.class);

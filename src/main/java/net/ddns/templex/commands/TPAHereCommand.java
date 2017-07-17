@@ -29,7 +29,7 @@ public class TPAHereCommand extends TabbableCommand {
     private final ScheduledExecutorService requestManager;
 
     public TPAHereCommand() {
-        super("tpahere", "templex.nonop");
+        super("tpahere", "nonop");
         this.requests = new ConcurrentHashMap<>();
         requestManager = Executors.newSingleThreadScheduledExecutor();
     }

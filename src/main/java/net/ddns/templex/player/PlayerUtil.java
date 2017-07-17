@@ -16,7 +16,7 @@ public final class PlayerUtil {
     public static Collection<ProxiedPlayer> getOnlineOps() {
         ArrayList<ProxiedPlayer> ops = new ArrayList<>();
         for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-            if (player.getPermissions().contains("templex.op")) {
+            if (player.getPermissions().contains("op")) {
                 ops.add(player);
             }
         }

@@ -11,7 +11,7 @@ public class RefreshCommand extends TabbableCommand {
     private final TemplexAdditionsPlugin plugin;
 
     public RefreshCommand(TemplexAdditionsPlugin plugin) {
-        super("refresh", "templex.op");
+        super("refresh", "op");
         this.plugin = plugin;
     }
 

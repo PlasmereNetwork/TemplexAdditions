@@ -11,7 +11,7 @@ public class RulesCommand extends TabbableCommand {
     private final BaseComponent[] rules;
 
     public RulesCommand() {
-        super("rules", "templex.nonop");
+        super("rules", "nonop");
         this.rules =
                 new ComponentBuilder("------- ").color(ChatColor.GRAY).append("RULES ").color(ChatColor.RED).append("-------").color(ChatColor.GRAY).append("\n")
                         .append("- ").color(ChatColor.LIGHT_PURPLE).append("No griefing/raiding. Don't even try.").color(ChatColor.DARK_GREEN).append("\n")

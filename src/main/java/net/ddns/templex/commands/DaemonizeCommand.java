@@ -11,7 +11,7 @@ import java.util.Collections;
 public class DaemonizeCommand extends TabbableCommand {
 
     public DaemonizeCommand() {
-        super("daemonize", "templex.op", "d");
+        super("daemonize", "op", "d");
     }
 
     @Override

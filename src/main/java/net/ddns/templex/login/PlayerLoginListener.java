@@ -44,10 +44,10 @@ public class PlayerLoginListener implements Listener {
             public void run() {
                 try {
                     OPs ops = plugin.getConfigHandler().getConfig("ops.json", OPs.class);
-                    player.setPermission("templex.op", false);
+                    player.setPermission("op", false);
                     for (OPs.OPsEntry entry : ops) {
                         if (player.getName().equals(entry.getName())) {
-                            player.setPermission("templex.op", true);
+                            player.setPermission("op", true);
                             plugin.getLogger().info(String.format("Marked %s as an operator.", player.getName()));
                             break;
                         }
@@ -55,7 +55,7 @@ public class PlayerLoginListener implements Listener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                player.setPermission("templex.nonop", true);
+                player.setPermission("nonop", true);
             }
         });
     }

@@ -16,7 +16,7 @@ import java.util.Collections;
 public class BanIPCommand extends TabbableCommand {
 
     public BanIPCommand() {
-        super("ban-ip", "templex.op");
+        super("ban-ip", "op");
     }
 
     @Override
