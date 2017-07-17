@@ -50,6 +50,8 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new BanIPCommand(),
                 new DaemonizeCommand(),
                 new EndCommand(this),
+                new RefreshCommand(this),
+                new RulesCommand(),
                 new RTPCommand(),
                 new SpawnCommand(this),
                 new SurvivalCommand(),
@@ -58,14 +60,18 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new HomeCommand(homeHandler),
                 new SetHomeCommand(homeHandler)
         );
-        for (TabbableCommand command : addedCommands) {
-            getProxy().getPluginManager().registerCommand(this, command);
-        }
+        registerCommands();
         getProxy().getPluginManager().registerListener(this, homeHandler);
         getProxy().getPluginManager().registerListener(this, daemonChatListener);
         getProxy().getPluginManager().registerListener(this, pingListener);
         getProxy().getPluginManager().registerListener(this, loginListener);
         getProxy().getPluginManager().registerListener(this, chatListener);
+    }
+
+    public void registerCommands() {
+        for (TabbableCommand command : addedCommands) {
+            getProxy().getPluginManager().registerCommand(this, command);
+        }
     }
 
     @Override
