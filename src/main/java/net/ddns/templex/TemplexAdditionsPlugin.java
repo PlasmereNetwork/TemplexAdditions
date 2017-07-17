@@ -46,6 +46,15 @@ public class TemplexAdditionsPlugin extends Plugin {
         this.pingListener = new PingListener();
         this.loginListener = new PlayerLoginListener(this);
         this.chatListener = new ChatListener(this);
+        registerCommands();
+        getProxy().getPluginManager().registerListener(this, homeHandler);
+        getProxy().getPluginManager().registerListener(this, daemonChatListener);
+        getProxy().getPluginManager().registerListener(this, pingListener);
+        getProxy().getPluginManager().registerListener(this, loginListener);
+        getProxy().getPluginManager().registerListener(this, chatListener);
+    }
+
+    public void registerCommands() {
         addedCommands = Arrays.asList(
                 new BanIPCommand(),
                 new DaemonizeCommand(),
@@ -60,15 +69,6 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new HomeCommand(homeHandler),
                 new SetHomeCommand(homeHandler)
         );
-        registerCommands();
-        getProxy().getPluginManager().registerListener(this, homeHandler);
-        getProxy().getPluginManager().registerListener(this, daemonChatListener);
-        getProxy().getPluginManager().registerListener(this, pingListener);
-        getProxy().getPluginManager().registerListener(this, loginListener);
-        getProxy().getPluginManager().registerListener(this, chatListener);
-    }
-
-    public void registerCommands() {
         for (TabbableCommand command : addedCommands) {
             getProxy().getPluginManager().registerCommand(this, command);
         }
