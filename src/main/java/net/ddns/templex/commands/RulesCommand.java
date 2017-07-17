@@ -20,7 +20,7 @@ public class RulesCommand extends TabbableCommand {
                         .append("- ").color(ChatColor.LIGHT_PURPLE).append("Respect the server staff members! If you offend them, they may kick or even ban you!").color(ChatColor.DARK_GREEN).append("\n")
                         .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not ask for ranks, items, op, or favors from ops!").color(ChatColor.DARK_GREEN).append("\n")
                         .append("- ").color(ChatColor.LIGHT_PURPLE).append("Be appropriate! We have young players here.").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not use mods, hacks, or ").color(ChatColor.DARK_GREEN).append("any resource pack ").color(ChatColor.RED).bold(true).reset().append("that gives you an advantage over other players!").color(ChatColor.DARK_GREEN).append("\n")
+                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not use mods, hacks, or ").color(ChatColor.DARK_GREEN).append("any resource pack ").color(ChatColor.RED).bold(true).append("that gives you an advantage over other players!").reset().color(ChatColor.DARK_GREEN).append("\n")
                         .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not spam kill or die!").color(ChatColor.DARK_GREEN).append("\n")
                         .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not PVP without consent!").color(ChatColor.DARK_GREEN).append("\n")
                         .append("- ").color(ChatColor.LIGHT_PURPLE).append("Respect everyone!").color(ChatColor.DARK_GREEN).append("\n")
