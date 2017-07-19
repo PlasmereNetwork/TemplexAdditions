@@ -39,9 +39,4 @@ public class RTPCommand extends TabbableCommand {
         }
     }
 
-    @Override
-    public void handleTabCompleteEvent(TabCompleteEvent event) {
-        CommandUtil.pushAutocompletePlayers(event);
-    }
-
 }

@@ -3,8 +3,9 @@ package net.ddns.templex.login;
 import com.google.common.net.InetAddresses;
 import lombok.RequiredArgsConstructor;
 import net.ddns.templex.TemplexAdditionsPlugin;
-import net.ddns.templex.mc.config.BannedIPs;
-import net.ddns.templex.mc.config.OPs;
+import net.ddns.templex.player.config.BannedIPs;
+import net.ddns.templex.player.config.OPs;
+import net.ddns.templex.player.config.Specials;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.event.PreLoginEvent;
@@ -42,22 +43,43 @@ public class PlayerLoginListener implements Listener {
         final ProxiedPlayer player = event.getPlayer();
         plugin.getBackgroundExecutor().submit(new Runnable() {
             public void run() {
-                try {
-                    OPs ops = plugin.getConfigHandler().getConfig("ops.json", OPs.class);
-                    player.setPermission("op", false);
-                    for (OPs.OPsEntry entry : ops) {
-                        if (player.getName().equals(entry.getName())) {
-                            player.setPermission("op", true);
-                            plugin.getLogger().info(String.format("Marked %s as an operator.", player.getName()));
-                            break;
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                establishOp(player);
+                establishSpecial(player);
                 player.setPermission("nonop", true);
             }
         });
+    }
+
+    private void establishOp(ProxiedPlayer player) {
+        try {
+            OPs ops = plugin.getConfigHandler().getConfig("ops.json", OPs.class);
+            player.setPermission("op", false);
+            for (OPs.OPsEntry entry : ops) {
+                if (player.getName().equals(entry.getName())) {
+                    player.setPermission("op", true);
+                    plugin.getLogger().info(String.format("Marked %s as an operator.", player.getName()));
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void establishSpecial(ProxiedPlayer player) {
+        try {
+            Specials specials = plugin.getConfigHandler().getConfig("special.json", Specials.class);
+            player.setPermission("special", false);
+            for (Specials.SpecialsEntry entry : specials) {
+                if (player.getName().equals(entry.getName())) {
+                    player.setPermission("special", true);
+                    plugin.getLogger().info(String.format("Marked %s as a special player.", player.getName()));
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

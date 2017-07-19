@@ -21,9 +21,6 @@ public class BanIPCommand extends TabbableCommand {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (commandSender.equals(ProxyServer.getInstance().getConsole())) {
-            return;
-        }
         ProxiedPlayer player = (ProxiedPlayer) commandSender;
         if (strings.length == 0) {
             player.sendMessage(new ComponentBuilder("A player or IP must be specified!").color(ChatColor.RED).create());

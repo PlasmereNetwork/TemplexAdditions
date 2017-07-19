@@ -1,4 +1,4 @@
-package net.ddns.templex.mc.config;
+package net.ddns.templex.player.config;
 
 import lombok.Value;
 

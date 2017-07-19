@@ -2,14 +2,18 @@ package net.ddns.templex.commands;
 
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
-import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.util.Collections;
 
 public class FireworkCommand extends TabbableCommand {
-    public FireworkCommand() {super("firework","nonop","fw");}
+
+    public FireworkCommand() {
+        super("firework", "special", "fw");
+    }
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
@@ -17,17 +21,17 @@ public class FireworkCommand extends TabbableCommand {
             return;
         }
         try {
-            Daemon.getInstance().submitCommands(Collections.singletonList("/execute @p[name=" + commandSender + ",tag=special] ~ ~ ~ summon fireworks_rocket ~ ~ ~ {LifeTime:40,Damage:0s}"));
-            Daemon.getInstance().submitCommands(Collections.singletonList("/tellraw @p[name=" + commandSender + ",tag=!special] [{\"text\":\"You do not meet the required specifications to submit this command!\",\"color\":\"red\"}]"));
-            Daemon.getInstance().submitCommands(Collections.singletonList("/tellraw @p[name=" + commandSender + ",tag=special] [{\"text\":\"Successfully sent off a rocket!\",\"color\":\"green\"}]"));
-            Daemon.getInstance().submitCommands(Collections.singletonList("/execute @p[name=" + commandSender + ",tag=special] [{\"text\":\"Firework PL\":\"color\":\"gold\"},{\"text\":\" : \",\"color\":\"dark_gray\"},{\"selector\":\"@s\"},{\"text\":\" just sent off a rocket!\",\"color\":\"red\"}]"));
+            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ summon fireworks_rocket ~ ~ ~ {LifeTime:40,Damage:0s}", commandSender.getName())));
+            CommandUtil.tellOps(
+                    new ComponentBuilder("Firework PL ").color(ChatColor.GOLD)
+                            .append(": ").color(ChatColor.DARK_GRAY)
+                            .append(commandSender.getName()).color(ChatColor.GREEN)
+                            .append(" just sent off a rocket!").color(ChatColor.RED)
+                            .create()
+            );
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void handleTabCompleteEvent(TabCompleteEvent event) {
-        CommandUtil.pushAutocompletePlayers(event);
-    }
 }
