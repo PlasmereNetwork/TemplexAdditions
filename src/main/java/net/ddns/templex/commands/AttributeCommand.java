@@ -53,7 +53,7 @@ public class AttributeCommand extends TabbableCommand {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        return;
+                        break;
                     case "false":
                         try {
                             player.setPermission("special", false);
@@ -67,11 +67,16 @@ public class AttributeCommand extends TabbableCommand {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                        return;
+                        break;
                     default:
                         commandSender.sendMessage(new ComponentBuilder("This attribute requires a boolean value.").color(ChatColor.RED).create());
+                        return;
                 }
+                break;
+            default:
+                return;
         }
+        commandSender.sendMessage(new ComponentBuilder(String.format("Set attribute %s of player %s to %s.", strings[1], strings[0], strings[2])).color(ChatColor.GREEN).create());
     }
 
     @Override
