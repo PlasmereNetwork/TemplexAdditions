@@ -83,10 +83,11 @@ public class AttributeCommand extends TabbableCommand {
     @Override
     public void handleTabCompleteEvent(TabCompleteEvent event) {
         String[] items = event.getCursor().split(" ");
+        plugin.getLogger().info(Arrays.toString(items));
         switch (items.length) {
             case 1:
                 CommandUtil.pushAutocompletePlayers(event);
-                return;
+                break;
             case 2:
                 if (items[1].length() == 0) {
                     event.getSuggestions().addAll(attributes);
@@ -97,8 +98,9 @@ public class AttributeCommand extends TabbableCommand {
                         }
                     }
                 }
-                return;
+                break;
             default:
         }
+        plugin.getLogger().info(event.getSuggestions().toString());
     }
 }
