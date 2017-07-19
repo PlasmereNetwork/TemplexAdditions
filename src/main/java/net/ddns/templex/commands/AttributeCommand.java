@@ -90,7 +90,7 @@ public class AttributeCommand extends TabbableCommand {
                 break;
             case 3:
                 for (String attribute : attributes) {
-                    if (attribute.startsWith(items[1])) {
+                    if (attribute.startsWith(items[2])) {
                         event.getSuggestions().add(attribute);
                     }
                 }
