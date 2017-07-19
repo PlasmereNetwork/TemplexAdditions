@@ -56,6 +56,7 @@ public class TemplexAdditionsPlugin extends Plugin {
 
     public void registerCommands() {
         addedCommands = Arrays.asList(
+                new AttributeCommand(this),
                 new BanIPCommand(),
                 new DaemonizeCommand(),
                 new EndCommand(this),
