@@ -67,7 +67,8 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new TPACommand(),
                 new TPAHereCommand(),
                 new HomeCommand(homeHandler),
-                new SetHomeCommand(homeHandler)
+                new SetHomeCommand(homeHandler),
+                new FireworkCommand()
         );
         for (TabbableCommand command : addedCommands) {
             getProxy().getPluginManager().registerCommand(this, command);
