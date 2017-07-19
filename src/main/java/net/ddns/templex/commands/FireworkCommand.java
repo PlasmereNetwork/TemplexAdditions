@@ -9,7 +9,7 @@ import net.md_5.bungee.api.event.TabCompleteEvent;
 import java.util.Collections;
 
 public class FireworkCommand extends TabbableCommand {
-    public FireworkCommand() {super("firework","templex.nonop","fw");}
+    public FireworkCommand() {super("firework","nonop","fw");}
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
