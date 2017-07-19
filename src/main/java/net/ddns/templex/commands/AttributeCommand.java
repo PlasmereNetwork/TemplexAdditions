@@ -74,6 +74,7 @@ public class AttributeCommand extends TabbableCommand {
                 }
                 break;
             default:
+                commandSender.sendMessage(new ComponentBuilder(String.format("Attribute %s does not exist.", strings[1])).color(ChatColor.RED).create());
                 return;
         }
         commandSender.sendMessage(new ComponentBuilder(String.format("Set attribute %s of player %s to %s.", strings[1], strings[0], strings[2])).color(ChatColor.GREEN).create());
