@@ -87,9 +87,13 @@ public class AttributeCommand extends TabbableCommand {
                 CommandUtil.pushAutocompletePlayers(event);
                 return;
             case 2:
-                for (String attribute : attributes) {
-                    if (attribute.startsWith(items[1])) {
-                        event.getSuggestions().add(attribute);
+                if (items[1].length() == 0) {
+                    event.getSuggestions().addAll(attributes);
+                } else {
+                    for (String attribute : attributes) {
+                        if (attribute.startsWith(items[1])) {
+                            event.getSuggestions().add(attribute);
+                        }
                     }
                 }
                 return;
