@@ -5,12 +5,17 @@ import io.github.trulyfree.va.config.ConfigHandler;
 import lombok.Getter;
 import net.ddns.templex.chat.ChatListener;
 import net.ddns.templex.commands.*;
+import net.ddns.templex.commands.attribute.AttributeCommand;
+import net.ddns.templex.commands.attribute.AttributeHandler;
 import net.ddns.templex.commands.home.HomeCommand;
 import net.ddns.templex.commands.home.HomeHandler;
 import net.ddns.templex.commands.home.SetHomeCommand;
+import net.ddns.templex.commands.team.TeamCommand;
+import net.ddns.templex.commands.team.TeamHandler;
 import net.ddns.templex.daemon.DaemonChatListener;
 import net.ddns.templex.login.PlayerLoginListener;
 import net.ddns.templex.ping.PingListener;
+import net.ddns.templex.player.config.Specials;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.Arrays;
@@ -23,7 +28,11 @@ public class TemplexAdditionsPlugin extends Plugin {
     @Getter
     private final ExecutorService backgroundExecutor = Executors.newCachedThreadPool();
     @Getter
+    private AttributeHandler attributeHandler;
+    @Getter
     private HomeHandler homeHandler;
+    @Getter
+    private TeamHandler teamHandler;
     @Getter
     private ConfigHandler configHandler;
     @Getter
@@ -40,7 +49,9 @@ public class TemplexAdditionsPlugin extends Plugin {
     @Override
     public void onEnable() {
         super.onEnable();
+        this.attributeHandler = new AttributeHandler(this);
         this.homeHandler = new HomeHandler(this);
+        this.teamHandler = new TeamHandler(this);
         this.configHandler = new ConfigHandler(this);
         this.daemonChatListener = new DaemonChatListener(this);
         this.pingListener = new PingListener();
@@ -65,6 +76,7 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new RTPCommand(),
                 new SpawnCommand(this),
                 new SurvivalCommand(),
+                new TeamCommand(teamHandler),
                 new TPACommand(),
                 new TPAHereCommand(),
                 new HomeCommand(homeHandler),
@@ -74,6 +86,7 @@ public class TemplexAdditionsPlugin extends Plugin {
         for (TabbableCommand command : addedCommands) {
             getProxy().getPluginManager().registerCommand(this, command);
         }
+        Specials.assignSpecialAttributes(this); // TODO find a better place for this.
     }
 
     @Override

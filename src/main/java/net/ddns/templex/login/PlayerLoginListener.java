@@ -43,6 +43,7 @@ public class PlayerLoginListener implements Listener {
         final ProxiedPlayer player = event.getPlayer();
         plugin.getBackgroundExecutor().submit(new Runnable() {
             public void run() {
+                plugin.getTeamHandler().assignTeam(player);
                 establishOp(player);
                 establishSpecial(player);
                 player.setPermission("nonop", true);

@@ -26,7 +26,7 @@ public class TeamCommand extends TabbableCommand {
         switch (strings[0]) {
             case "add":
                 if (strings.length < 3) {
-                    commandSender.sendMessage(new ComponentBuilder("Syntax:\n/team add <teamname> <format>").color(ChatColor.RED).create());
+                    commandSender.sendMessage(new ComponentBuilder("Syntax:\n/team add <team name> <format>").color(ChatColor.RED).create());
                     return;
                 }
                 StringBuilder formatBuilder = new StringBuilder(strings[2]);
@@ -36,12 +36,12 @@ public class TeamCommand extends TabbableCommand {
                 }
                 handler.addTeam(strings[1], new TeamMap.Team(formatBuilder.toString(), new ArrayList<String>()));
                 commandSender.sendMessage(
-                        new ComponentBuilder(String.format("Team %s added successfully.\nAdd players with /attr <playername> team <teamname>.\nRemove players from their teams with /attr <playername> team", strings[1])).color(ChatColor.GREEN).create()
+                        new ComponentBuilder(String.format("Team %s added successfully.\nAdd players with /attr <playername> team <team name>.\nRemove players from their teams with /attr <playername> team", strings[1])).color(ChatColor.GREEN).create()
                 );
                 return;
             case "remove":
                 if (strings.length != 2) {
-                    commandSender.sendMessage(new ComponentBuilder("Syntax:\n/team remove <teamname>").color(ChatColor.RED).create());
+                    commandSender.sendMessage(new ComponentBuilder("Syntax:\n/team remove <team name>").color(ChatColor.RED).create());
                     return;
                 }
                 handler.removeTeam(strings[1]);

@@ -6,13 +6,17 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 public class TeamHandler {
 
-    private final TeamMap map;
     private static final TeamMap.Team defaultTeam = new TeamMap.Team("§aNew Comer %s§r", new ArrayList<String>(0));
+    private final TeamMap map;
+    private final TemplexAdditionsPlugin plugin;
 
     public TeamHandler(TemplexAdditionsPlugin plugin) {
+        this.plugin = plugin;
         TeamMap map;
         try {
             map = plugin.getConfigHandler().getConfig("teams.json", TeamMap.class);
@@ -21,6 +25,8 @@ public class TeamHandler {
             e.printStackTrace();
         }
         this.map = map;
+
+        plugin.getAttributeHandler().getAttributes().put("team", new TeamAttribute(this));
     }
 
     public void assignTeam(ProxiedPlayer player) {
@@ -33,30 +39,61 @@ public class TeamHandler {
         player.setDisplayName(String.format(defaultTeam.getFormat(), player));
     }
 
-    public boolean changeTeam(String playerName, String teamName) {
-        if (!map.containsKey(teamName)) {
-            return false;
-        }
+    public void removeFromTeams(String playerName) {
         for (TeamMap.Team team : map.values()) {
             if (team.getMembers().remove(playerName)) {
-                break;
+                return;
             }
         }
-        TeamMap.Team team = map.get(teamName);
-        team.getMembers().add(playerName);
         ProxiedPlayer player = ProxyServer.getInstance().getPlayer(playerName);
         if (player != null) {
-            player.setDisplayName(String.format(team.getFormat(), player));
+            player.setDisplayName(String.format(defaultTeam.getFormat(), player));
         }
-        return true;
+        saveMap();
+    }
+
+    public void changeTeam(String playerName, String teamName) {
+        if (!map.containsKey(teamName)) {
+            return;
+        }
+        TeamMap.Team targetTeam = map.get(teamName);
+        if (targetTeam == null) {
+            return;
+        }
+        removeFromTeams(playerName);
+        targetTeam.getMembers().add(playerName);
+        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(playerName);
+        if (player != null) {
+            player.setDisplayName(String.format(targetTeam.getFormat(), player));
+        }
+        saveMap();
+    }
+
+    public List<String> getTeams() {
+        ArrayList<String> teams = new ArrayList<>(map.size());
+        Enumeration<String> teamEnum = map.keys();
+        while (teamEnum.hasMoreElements()) {
+            teams.add(teamEnum.nextElement());
+        }
+        return teams;
     }
 
     public void addTeam(String teamName, TeamMap.Team team) {
         map.put(teamName, team);
+        saveMap();
     }
 
     public void removeTeam(String teamName) {
         map.remove(teamName);
+        saveMap();
+    }
+
+    private void saveMap() {
+        try {
+            plugin.getConfigHandler().saveConfig("teams.json", map);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
