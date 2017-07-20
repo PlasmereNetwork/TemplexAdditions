@@ -39,7 +39,7 @@ public class TeamCommand extends TabbableCommand {
                     formatBuilder.append(' ');
                     formatBuilder.append(strings[i]);
                 }
-                handler.addTeam(strings[1], new TeamMap.Team(formatBuilder.toString(), new ArrayList<String>()));
+                handler.addTeam(strings[1], new TeamMap.Team(formatBuilder.toString().replace('&', '§'), new ArrayList<String>()));
                 commandSender.sendMessage(
                         new ComponentBuilder(String.format("Team %s added successfully.\nAdd players with /attr <playername> team <team name>.\nRemove players from their teams with /attr <playername> team", strings[1])).color(ChatColor.GREEN).create()
                 );
