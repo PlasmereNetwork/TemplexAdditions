@@ -79,7 +79,7 @@ public class TeamHandler {
     }
 
     public void addTeam(String teamName, TeamMap.Team team) {
-        map.put(teamName, team);
+        map.putIfAbsent(teamName, team);
         saveMap();
     }
 
