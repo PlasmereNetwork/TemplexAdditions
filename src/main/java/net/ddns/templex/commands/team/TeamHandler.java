@@ -84,7 +84,14 @@ public class TeamHandler {
     }
 
     public void removeTeam(String teamName) {
-        map.remove(teamName);
+        TeamMap.Team team = map.remove(teamName);
+        if (team != null) {
+            for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+                if (team.getMembers().contains(player.getName())) {
+                    player.setDisplayName(String.format(defaultTeam.getFormat(), player.getName()));
+                }
+            }
+        }
         saveMap();
     }
 
