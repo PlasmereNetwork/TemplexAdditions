@@ -49,7 +49,7 @@ public class ChatListener implements Listener {
                 ProxyServer.getInstance().getLogger().info(
                         String.format(
                                 "<%s> %s",
-                                ((ProxiedPlayer) event.getSender()).getName(),
+                                ((ProxiedPlayer) event.getSender()).getDisplayName(),
                                 event.getMessage()
                         )
                 );

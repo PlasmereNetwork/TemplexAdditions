@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class TeamCommand extends TabbableCommand {
 
-    private BaseComponent[] SYNTAX = new ComponentBuilder("Syntax:\n/team <add|remove>").color(ChatColor.RED).create();
+    private BaseComponent[] SYNTAX = new ComponentBuilder("Syntax:\n/team <add|remove> ...").color(ChatColor.RED).create();
     private BaseComponent[] SYNTAX_ADD = new ComponentBuilder("Syntax:\n/team add <team name> <format>").color(ChatColor.RED).create();
     private BaseComponent[] SYNTAX_REMOVE = new ComponentBuilder("Syntax:\n/team remove <team name>").color(ChatColor.RED).create();
 
