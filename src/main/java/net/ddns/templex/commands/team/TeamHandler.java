@@ -45,9 +45,10 @@ public class TeamHandler {
                 return;
             }
         }
-        ProxiedPlayer player = ProxyServer.getInstance().getPlayer(playerName);
-        if (player != null) {
-            player.setDisplayName(String.format(defaultTeam.getFormat(), player));
+        for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
+            if (player.getName().equals(playerName)) {
+                player.setDisplayName(String.format(defaultTeam.getFormat(), player));
+            }
         }
         saveMap();
     }
