@@ -12,6 +12,8 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class AttributeCommand extends TabbableCommand {
 
@@ -45,15 +47,10 @@ public class AttributeCommand extends TabbableCommand {
 
     @Override
     public void handleTabCompleteEvent(TabCompleteEvent event) {
-        ArrayList<String> items = new ArrayList<>();
-        int last = 0;
-        for (int i = 0; i < event.getCursor().length(); i++) {
-            if (event.getCursor().charAt(i) == ' ') {
-                items.add(event.getCursor().substring(last, i));
-                last = i + 1;
-            }
-        }
+        List<String> items = Arrays.asList(event.getCursor().split(" "));
         switch (items.size()) {
+            case 1:
+                break;
             case 2:
                 CommandUtil.pushAutocompletePlayers(event);
                 break;
