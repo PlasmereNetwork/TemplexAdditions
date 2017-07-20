@@ -54,10 +54,11 @@ public class ChatListener implements Listener {
                         ((ProxiedPlayer) event.getSender()).getDisplayName(),
                         event.getMessage()
                 ));
+                TranslatableComponent translatableComponent = new TranslatableComponent("chat.type.text");
+                translatableComponent.addWith(((ProxiedPlayer) event.getSender()).getDisplayName());
+                translatableComponent.addWith(event.getMessage());
                 for (ProxiedPlayer player : plugin.getProxy().getPlayers()) {
-                    TranslatableComponent translatableComponent = new TranslatableComponent("chat.type.text");
-                    translatableComponent.addWith(((ProxiedPlayer) event.getSender()).getDisplayName());
-                    translatableComponent.addWith(event.getMessage());
+                    player.sendMessage(translatableComponent);
                 }
             }
         }
