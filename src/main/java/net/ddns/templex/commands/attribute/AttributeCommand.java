@@ -28,7 +28,7 @@ public class AttributeCommand extends TabbableCommand {
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
-        if (strings.length != 3) {
+        if (strings.length < 2) {
             commandSender.sendMessage(SYNTAX);
             return;
         }
