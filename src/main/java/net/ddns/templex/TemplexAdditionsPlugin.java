@@ -70,6 +70,7 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new AttributeCommand(this),
                 new BanIPCommand(),
                 new DaemonizeCommand(),
+                new DaemonSpeakCommand(),
                 new EndCommand(this),
                 new RefreshCommand(this),
                 new RulesCommand(),
