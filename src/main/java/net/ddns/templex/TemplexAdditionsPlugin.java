@@ -32,9 +32,9 @@ public class TemplexAdditionsPlugin extends Plugin {
     @Getter
     private HomeHandler homeHandler;
     @Getter
-    private TeamHandler teamHandler;
-    @Getter
     private ConfigHandler configHandler;
+    @Getter
+    private TeamHandler teamHandler;
     @Getter
     private DaemonChatListener daemonChatListener;
     @Getter
@@ -51,8 +51,8 @@ public class TemplexAdditionsPlugin extends Plugin {
         super.onEnable();
         this.attributeHandler = new AttributeHandler(this);
         this.homeHandler = new HomeHandler(this);
-        this.teamHandler = new TeamHandler(this);
         this.configHandler = new ConfigHandler(this);
+        this.teamHandler = new TeamHandler(this);
         this.daemonChatListener = new DaemonChatListener(this);
         this.pingListener = new PingListener();
         this.loginListener = new PlayerLoginListener(this);
