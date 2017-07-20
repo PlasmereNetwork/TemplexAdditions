@@ -4,7 +4,9 @@ import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import lombok.RequiredArgsConstructor;
 import net.ddns.templex.TemplexAdditionsPlugin;
+import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TranslatableComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ChatEvent;
 import net.md_5.bungee.api.plugin.Listener;
@@ -46,13 +48,17 @@ public class ChatListener implements Listener {
                         )
                 );
             } else {
-                ProxyServer.getInstance().getLogger().info(
-                        String.format(
-                                "<%s> %s",
-                                ((ProxiedPlayer) event.getSender()).getDisplayName(),
-                                event.getMessage()
-                        )
-                );
+                event.setCancelled(true);
+                ProxyServer.getInstance().getLogger().info(String.format(
+                        "<%s> %s",
+                        ((ProxiedPlayer) event.getSender()).getDisplayName(),
+                        event.getMessage()
+                ));
+                for (ProxiedPlayer player : plugin.getProxy().getPlayers()) {
+                    TranslatableComponent translatableComponent = new TranslatableComponent("chat.type.text");
+                    translatableComponent.addWith(((ProxiedPlayer) event.getSender()).getDisplayName());
+                    translatableComponent.addWith(event.getMessage());
+                }
             }
         }
     }
