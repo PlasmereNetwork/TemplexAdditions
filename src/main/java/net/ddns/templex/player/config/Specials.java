@@ -29,6 +29,8 @@ public class Specials extends ArrayList<Specials.SpecialsEntry> {
     @RequiredArgsConstructor
     public static class SpecialAttribute implements Attribute {
 
+        private BaseComponent[] BAD_VALUE = new ComponentBuilder("This attribute requires a boolean value.").color(ChatColor.RED).create();
+
         private final TemplexAdditionsPlugin plugin;
 
         @Override
@@ -73,7 +75,7 @@ public class Specials extends ArrayList<Specials.SpecialsEntry> {
                     }
                     return new ComponentBuilder(String.format("Marked %s as not special.", player.getDisplayName())).color(ChatColor.GREEN).create();
                 default:
-                    return new ComponentBuilder("This attribute requires a boolean value.").color(ChatColor.RED).create();
+                    return BAD_VALUE;
             }
         }
     }

@@ -4,11 +4,14 @@ import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 
 import java.util.Collections;
 
 public class DaemonizeCommand extends TabbableCommand {
+
+    private BaseComponent[] NO_COMMAND = new ComponentBuilder("Must submit a command to execute!").color(ChatColor.RED).create();
 
     public DaemonizeCommand() {
         super("daemonize", "op", "d");
@@ -17,7 +20,7 @@ public class DaemonizeCommand extends TabbableCommand {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new ComponentBuilder("Must submit a command to execute!").color(ChatColor.RED).create());
+            commandSender.sendMessage(NO_COMMAND);
             return;
         }
         StringBuilder commandBuilder = new StringBuilder("/execute @s ~ ~ ~");

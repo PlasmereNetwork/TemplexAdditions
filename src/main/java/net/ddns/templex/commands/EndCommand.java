@@ -7,6 +7,7 @@ import net.ddns.templex.TemplexAdditionsPlugin;
 import net.ddns.templex.world.CoordinateTriad;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
@@ -18,6 +19,8 @@ import java.util.Collections;
  * Tps players to the End on the Templex server.
  */
 public class EndCommand extends TabbableCommand {
+
+    private final BaseComponent[] NO_COORDS = new ComponentBuilder("End coordinates were not specified! Contact an administrator.").color(ChatColor.RED).create();
 
     private final CoordinateTriad endPortalCoordinates;
 
@@ -39,7 +42,7 @@ public class EndCommand extends TabbableCommand {
             return;
         }
         if (endPortalCoordinates == null) {
-            commandSender.sendMessage(new ComponentBuilder("End portal coordinates were not specified! Contact an administrator.").color(ChatColor.RED).create());
+            commandSender.sendMessage(NO_COORDS);
             return;
         }
         try {

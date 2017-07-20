@@ -6,6 +6,7 @@ import net.ddns.templex.commands.CommandUtil;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
@@ -13,6 +14,8 @@ import net.md_5.bungee.api.event.TabCompleteEvent;
 import java.util.ArrayList;
 
 public class AttributeCommand extends TabbableCommand {
+
+    private BaseComponent[] SYNTAX = new ComponentBuilder("Syntax:\n/attribute <player> <attribute> [value]").color(ChatColor.RED).create();
 
     private final TemplexAdditionsPlugin plugin;
 
@@ -24,7 +27,7 @@ public class AttributeCommand extends TabbableCommand {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length != 3) {
-            commandSender.sendMessage(new ComponentBuilder("Syntax:\n/attribute <player> <attribute> [value]").color(ChatColor.RED).create());
+            commandSender.sendMessage(SYNTAX);
             return;
         }
         ProxiedPlayer player = ProxyServer.getInstance().getPlayer(strings[0]);

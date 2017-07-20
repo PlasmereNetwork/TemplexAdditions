@@ -4,6 +4,7 @@ import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
@@ -13,6 +14,8 @@ import java.util.Collections;
  * Randomly tps players.
  */
 public class RTPCommand extends TabbableCommand {
+
+    private final BaseComponent[] SUCCESS = new ComponentBuilder("You have been randomly teleported successfully!").color(ChatColor.GREEN).create();
 
     public RTPCommand() {
         super("rtp", "nonop");
@@ -24,7 +27,7 @@ public class RTPCommand extends TabbableCommand {
             return;
         }
         try {
-            Daemon.getInstance().submitCommands(Collections.singletonList("/spreadplayers  ~ ~ 700000 2000000 false " + commandSender.getName()));
+            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/spreadplayers  ~ ~ 700000 2000000 false %s", commandSender.getName())));
             CommandUtil.tellOps(
                     new ComponentBuilder("RTP PL ").color(ChatColor.GOLD)
                             .append(": ").color(ChatColor.DARK_GRAY)
@@ -32,7 +35,7 @@ public class RTPCommand extends TabbableCommand {
                             .append(commandSender.getName()).color(ChatColor.GRAY)
                             .append("!").color(ChatColor.RED).create()
             );
-            commandSender.sendMessage(new ComponentBuilder("You have been successfully randomly teleported!").color(ChatColor.GREEN).create());
+            commandSender.sendMessage(SUCCESS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

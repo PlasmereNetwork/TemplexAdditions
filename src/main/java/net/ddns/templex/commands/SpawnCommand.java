@@ -7,6 +7,7 @@ import net.ddns.templex.TemplexAdditionsPlugin;
 import net.ddns.templex.world.CoordinateTriad;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
@@ -18,6 +19,8 @@ import java.util.Collections;
  * Tps players to SpawnCommand.
  */
 public class SpawnCommand extends TabbableCommand {
+
+    private final BaseComponent[] NO_COORDS = new ComponentBuilder("Spawn coordinates were not specified! Contact an administrator.").color(ChatColor.RED).create();
 
     private final CoordinateTriad spawn;
 
@@ -39,11 +42,11 @@ public class SpawnCommand extends TabbableCommand {
             return;
         }
         if (spawn == null) {
-            commandSender.sendMessage(new ComponentBuilder("Spawn coordinates were not specified! Contact an administrator.").color(ChatColor.RED).create());
+            commandSender.sendMessage(NO_COORDS);
             return;
         }
         try {
-            Daemon.getInstance().submitCommands(Collections.singletonList("/tp " + commandSender.getName() + " " + spawn));
+            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/tp %s %s", commandSender.getName(), spawn)));
             CommandUtil.tellOps(
                     new ComponentBuilder("Spawn PL ").color(ChatColor.GOLD)
                             .append(": ").color(ChatColor.DARK_GRAY)

@@ -8,25 +8,23 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 
 public class RulesCommand extends TabbableCommand {
 
-    private final BaseComponent[] rules;
+    private final BaseComponent[] rules =
+            new ComponentBuilder("------- ").color(ChatColor.GRAY).append("RULES ").color(ChatColor.RED).append("-------").color(ChatColor.GRAY).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("No griefing/raiding. Don't even try.").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not swear. If you do so repeatedly, you may be banned.").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not spam.").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Respect the server staff members! If you offend them, they may kick or even ban you!").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not ask for ranks, items, op, or favors from ops!").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Be appropriate! We have young players here.").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not use mods, hacks, or ").color(ChatColor.DARK_GREEN).append("any resource pack ").color(ChatColor.RED).bold(true).append("that gives you an advantage over other players!").reset().color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not spam kill or die!").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not PVP without consent!").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("- ").color(ChatColor.LIGHT_PURPLE).append("Respect everyone!").color(ChatColor.DARK_GREEN).append("\n")
+                    .append("-------------------").color(ChatColor.GRAY)
+                    .create();
 
     public RulesCommand() {
         super("rules", "nonop");
-        this.rules =
-                new ComponentBuilder("------- ").color(ChatColor.GRAY).append("RULES ").color(ChatColor.RED).append("-------").color(ChatColor.GRAY).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("No griefing/raiding. Don't even try.").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not swear. If you do so repeatedly, you may be banned.").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not spam.").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Respect the server staff members! If you offend them, they may kick or even ban you!").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not ask for ranks, items, op, or favors from ops!").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Be appropriate! We have young players here.").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not use mods, hacks, or ").color(ChatColor.DARK_GREEN).append("any resource pack ").color(ChatColor.RED).bold(true).append("that gives you an advantage over other players!").reset().color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not spam kill or die!").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Do not PVP without consent!").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("- ").color(ChatColor.LIGHT_PURPLE).append("Respect everyone!").color(ChatColor.DARK_GREEN).append("\n")
-                        .append("-------------------").color(ChatColor.GRAY)
-                        .create();
-
     }
 
     @Override

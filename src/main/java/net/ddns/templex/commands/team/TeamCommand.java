@@ -3,12 +3,17 @@ package net.ddns.templex.commands.team;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.util.ArrayList;
 
 public class TeamCommand extends TabbableCommand {
+
+    private BaseComponent[] SYNTAX = new ComponentBuilder("Syntax:\n/team <add|remove>").color(ChatColor.RED).create();
+    private BaseComponent[] SYNTAX_ADD = new ComponentBuilder("Syntax:\n/team add <team name> <format>").color(ChatColor.RED).create();
+    private BaseComponent[] SYNTAX_REMOVE = new ComponentBuilder("Syntax:\n/team remove <team name>").color(ChatColor.RED).create();
 
     private final TeamHandler handler;
 
@@ -20,13 +25,13 @@ public class TeamCommand extends TabbableCommand {
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
-            commandSender.sendMessage(new ComponentBuilder("Syntax:\n/team <add|remove>").color(ChatColor.RED).create());
+            commandSender.sendMessage(SYNTAX);
             return;
         }
         switch (strings[0]) {
             case "add":
                 if (strings.length < 3) {
-                    commandSender.sendMessage(new ComponentBuilder("Syntax:\n/team add <team name> <format>").color(ChatColor.RED).create());
+                    commandSender.sendMessage(SYNTAX_ADD);
                     return;
                 }
                 StringBuilder formatBuilder = new StringBuilder(strings[2]);
@@ -41,7 +46,7 @@ public class TeamCommand extends TabbableCommand {
                 return;
             case "remove":
                 if (strings.length != 2) {
-                    commandSender.sendMessage(new ComponentBuilder("Syntax:\n/team remove <team name>").color(ChatColor.RED).create());
+                    commandSender.sendMessage(SYNTAX_REMOVE);
                     return;
                 }
                 handler.removeTeam(strings[1]);
@@ -50,7 +55,7 @@ public class TeamCommand extends TabbableCommand {
                 );
                 return;
             default:
-                commandSender.sendMessage(new ComponentBuilder("Syntax:\n/team <add|remove").color(ChatColor.RED).create());
+                commandSender.sendMessage(SYNTAX);
         }
     }
 

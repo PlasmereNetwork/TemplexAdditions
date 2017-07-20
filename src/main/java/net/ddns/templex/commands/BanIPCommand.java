@@ -6,6 +6,7 @@ import io.github.trulyfree.va.daemon.Daemon;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -15,6 +16,10 @@ import java.util.Collections;
 
 public class BanIPCommand extends TabbableCommand {
 
+    private BaseComponent[] NEED_ARG = new ComponentBuilder("A player or IP must be specified!").color(ChatColor.RED).create();
+    private BaseComponent[] BAD_ARG = new ComponentBuilder("Player name was not recognized or IP was malformed.").color(ChatColor.RED).create();
+    private BaseComponent DEFAULT_BAN_MESSAGE = new TextComponent("Banned by an operator.");
+
     public BanIPCommand() {
         super("ban-ip", "op");
     }
@@ -23,7 +28,7 @@ public class BanIPCommand extends TabbableCommand {
     public void execute(CommandSender commandSender, String[] strings) {
         ProxiedPlayer player = (ProxiedPlayer) commandSender;
         if (strings.length == 0) {
-            player.sendMessage(new ComponentBuilder("A player or IP must be specified!").color(ChatColor.RED).create());
+            player.sendMessage(NEED_ARG);
             return;
         }
         InetAddress toBan;
@@ -32,7 +37,7 @@ public class BanIPCommand extends TabbableCommand {
             try {
                 toBan = InetAddresses.forString(strings[0]);
             } catch (IllegalArgumentException e) {
-                player.sendMessage(new ComponentBuilder("Player name was not recognized or IP was malformed.").color(ChatColor.RED).create());
+                player.sendMessage(BAD_ARG);
                 return;
             }
         } else {
@@ -49,7 +54,7 @@ public class BanIPCommand extends TabbableCommand {
             instance.submitCommands(Collections.singletonList(commandBuilder.toString()));
             for (ProxiedPlayer item : ProxyServer.getInstance().getPlayers()) {
                 if (item.getAddress().getAddress().equals(toBan)) {
-                    item.disconnect(new TextComponent("Banned by an operator."));
+                    item.disconnect(DEFAULT_BAN_MESSAGE);
                 }
             }
         } catch (InterruptedException e) {
