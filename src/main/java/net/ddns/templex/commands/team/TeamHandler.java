@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TeamHandler {
 
-    private static final TeamMap.Team defaultTeam = new TeamMap.Team("§aNew Comer %s§r", new ArrayList<String>(0));
+    private static final TeamMap.Team defaultTeam = new TeamMap.Team("§aNew Comer §7%s§r", new ArrayList<String>(0));
     private final TeamMap map;
     private final TemplexAdditionsPlugin plugin;
 
