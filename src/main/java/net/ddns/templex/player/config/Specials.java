@@ -59,7 +59,9 @@ public class Specials extends ArrayList<Specials.SpecialsEntry> {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    return new ComponentBuilder(String.format("Marked %s as special. Woo!", player.getDisplayName())).color(ChatColor.GREEN).create();
+                    return new ComponentBuilder("Marked ").color(ChatColor.GREEN)
+                            .append(player.getDisplayName())
+                            .append(" as special. Woo!").color(ChatColor.GREEN).create();
                 case "false":
                     try {
                         player.setPermission("special", false);
@@ -73,7 +75,9 @@ public class Specials extends ArrayList<Specials.SpecialsEntry> {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    return new ComponentBuilder(String.format("Marked %s as not special.", player.getDisplayName())).color(ChatColor.GREEN).create();
+                    return new ComponentBuilder("Marked ").color(ChatColor.GREEN)
+                            .append(player.getDisplayName())
+                            .append(" as not so special.").color(ChatColor.GREEN).create();
                 default:
                     return BAD_VALUE;
             }
