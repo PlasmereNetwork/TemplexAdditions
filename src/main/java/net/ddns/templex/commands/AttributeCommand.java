@@ -11,6 +11,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -82,19 +83,69 @@ public class AttributeCommand extends TabbableCommand {
 
     @Override
     public void handleTabCompleteEvent(TabCompleteEvent event) {
-        String[] items = event.getCursor().split(" ");
-        switch (items.length) {
+        ArrayList<String> items = new ArrayList<>();
+        int last = 0;
+        for (int i = 0; i < event.getCursor().length(); i++) {
+            if (event.getCursor().charAt(i) == ' ') {
+                items.add(event.getCursor().substring(last, i));
+                last = i + 1;
+            }
+        }
+        switch (items.size()) {
             case 2:
                 CommandUtil.pushAutocompletePlayers(event);
                 break;
             case 3:
                 for (String attribute : attributes) {
-                    if (attribute.startsWith(items[2])) {
+                    if (attribute.startsWith(items.get(2))) {
                         event.getSuggestions().add(attribute);
                     }
                 }
                 break;
             default:
+                try {
+                    Attribute attribute = Attribute.valueOf(items.get(2).toUpperCase());
+                    attribute.handleTabCompleteEvent(event, items);
+                } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException ignored) {
+                }
+        }
+    }
+
+    private enum Attribute {
+        SPECIAL {
+            public void handleTabCompleteEvent(TabCompleteEvent event, List<String> items) {
+                if (items.size() == 4) {
+                    String value = items.get(3).toLowerCase();
+                    if ("true".startsWith(value)) {
+                        event.getSuggestions().add("true");
+                    } else if ("false".startsWith(value)) {
+                        event.getSuggestions().add("false");
+                    } else {
+                        event.getSuggestions().add("true");
+                        event.getSuggestions().add("false");
+                    }
+                }
+            }
+        },
+        DONOR(SPECIAL),
+        TEAM {
+
+        };
+
+        private final Attribute alias;
+
+        Attribute() {
+            this(null);
+        }
+
+        Attribute(Attribute alias) {
+            this.alias = alias;
+        }
+
+        public void handleTabCompleteEvent(TabCompleteEvent event, List<String> items) {
+            if (alias != null) {
+                alias.handleTabCompleteEvent(event, items);
+            }
         }
     }
 }
