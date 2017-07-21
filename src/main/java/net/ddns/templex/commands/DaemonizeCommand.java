@@ -11,7 +11,7 @@ import java.util.Collections;
 
 public class DaemonizeCommand extends TabbableCommand {
 
-    private BaseComponent[] NO_COMMAND = new ComponentBuilder("Must submit a command to execute!").color(ChatColor.RED).create();
+    private final BaseComponent[] NO_COMMAND = new ComponentBuilder("Must submit a command to execute!").color(ChatColor.RED).create();
 
     public DaemonizeCommand() {
         super("daemonize", "op", "d");

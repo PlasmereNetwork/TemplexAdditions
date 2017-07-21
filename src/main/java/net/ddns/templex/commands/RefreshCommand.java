@@ -9,7 +9,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 
 public class RefreshCommand extends TabbableCommand {
 
-    private BaseComponent[] SUCCESS = new ComponentBuilder("Refreshed successfully.").color(ChatColor.GREEN).create();
+    private final BaseComponent[] SUCCESS = new ComponentBuilder("Refreshed successfully.").color(ChatColor.GREEN).create();
 
     private final TemplexAdditionsPlugin plugin;
 

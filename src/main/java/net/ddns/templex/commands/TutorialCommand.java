@@ -18,12 +18,12 @@ public class TutorialCommand extends TabbableCommand {
                     .append("\nHow to tp to another player or another player to you: /tpa <name> or /tpahere <name>").color(ChatColor.DARK_PURPLE)
                     .append("\nHow to set your homes: /sethome <home name>").color(ChatColor.DARK_PURPLE)
                     .append("\nHow to go to your homes: /home <home name>").color(ChatColor.DARK_PURPLE).create()
-            );
+    );
     private final BaseComponent[] TUTORIAL_HOW = (
             new ComponentBuilder("We are a completely Vanilla Survival Server. This means we only work with what Mojang gives us in their server.jar all while having the adventurous survival aspect that brought so many to Minecraft. ").color(ChatColor.DARK_PURPLE)
                     .append("How we do this: We use a BungeeCord proxy plugin that allows us to talk to the MC instance through the plugin, thus we have no scoreboard i/o. Therefore little to no lag.").color(ChatColor.DARK_PURPLE)
                     .create()
-            );
+    );
     private final BaseComponent[] TUTORIAL_OFFER = (
             new ComponentBuilder("We have Vanilla minigames that give you Templex Credits and Karma for playing or winning. ").color(ChatColor.DARK_PURPLE)
                     .append("You can also tp to the store if you type \"/store\".").color(ChatColor.DARK_PURPLE)
@@ -32,7 +32,7 @@ public class TutorialCommand extends TabbableCommand {
 
                     .append(" More will be added to this later.").color(ChatColor.DARK_PURPLE)
                     .create()
-            );
+    );
     private final BaseComponent[] TUTORIAL_RANKUP = (
             new ComponentBuilder("New Comer").color(ChatColor.GREEN)
                     .append(": You get upon join.").color(ChatColor.DARK_PURPLE)
@@ -54,7 +54,7 @@ public class TutorialCommand extends TabbableCommand {
                     .append("or").color(ChatColor.DARK_PURPLE).italic(true)
                     .append(" you have over 2000 subscribers.").color(ChatColor.DARK_PURPLE)
                     .create()
-            );
+    );
     private final BaseComponent[] TUTORIAL_ECO = (
             new ComponentBuilder("Templex Credits are a currency for cosmetics and perks. If you have a bought rank, you will get more than if you don't.").color(ChatColor.DARK_PURPLE)
                     .append("\nKarma is a currency for items and game-changing perks. You get more by playing more.").color(ChatColor.DARK_PURPLE)
@@ -62,10 +62,12 @@ public class TutorialCommand extends TabbableCommand {
                     .create()
     );
 
-    public TutorialCommand() {super("tutorial","nonop","tut");}
+    public TutorialCommand() {
+        super("tutorial", "nonop", "tut");
+    }
 
     public void execute(CommandSender commandSender, String[] strings) {
-        if (strings.length == 0){
+        if (strings.length == 0) {
             commandSender.sendMessage(TUTORIAL_BEGIN);
             return;
         }

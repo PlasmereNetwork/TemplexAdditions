@@ -83,7 +83,6 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new HomeCommand(homeHandler),
                 new SetHomeCommand(homeHandler),
                 new FireworkCommand(),
-//                new TauntCommand(), // TODO
                 new TutorialCommand()
         );
         for (TabbableCommand command : addedCommands) {

@@ -16,9 +16,9 @@ import java.util.Collections;
 
 public class BanIPCommand extends TabbableCommand {
 
-    private BaseComponent[] NEED_ARG = new ComponentBuilder("A player or IP must be specified!").color(ChatColor.RED).create();
-    private BaseComponent[] BAD_ARG = new ComponentBuilder("Player name was not recognized or IP was malformed.").color(ChatColor.RED).create();
-    private BaseComponent DEFAULT_BAN_MESSAGE = new TextComponent("Banned by an operator.");
+    private final BaseComponent[] NEED_ARG = new ComponentBuilder("A player or IP must be specified!").color(ChatColor.RED).create();
+    private final BaseComponent[] BAD_ARG = new ComponentBuilder("Player name was not recognized or IP was malformed.").color(ChatColor.RED).create();
+    private final BaseComponent DEFAULT_BAN_MESSAGE = new TextComponent("Banned by an operator.");
 
     public BanIPCommand() {
         super("ban-ip", "op");

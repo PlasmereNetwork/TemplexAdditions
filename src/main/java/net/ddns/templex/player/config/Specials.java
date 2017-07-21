@@ -29,7 +29,7 @@ public class Specials extends ArrayList<Specials.SpecialsEntry> {
     @RequiredArgsConstructor
     public static class SpecialAttribute implements Attribute {
 
-        private BaseComponent[] BAD_VALUE = new ComponentBuilder("This attribute requires a boolean value.").color(ChatColor.RED).create();
+        private final BaseComponent[] BAD_VALUE = new ComponentBuilder("This attribute requires a boolean value.").color(ChatColor.RED).create();
 
         private final TemplexAdditionsPlugin plugin;
 

@@ -12,8 +12,8 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 public class DaemonSpeakCommand extends TabbableCommand {
 
-    private BaseComponent[] MESSAGE_NEEDED = new ComponentBuilder("Need a message to send!").color(ChatColor.RED).create();
-    private BaseComponent[] DAEMON_NEEDED = new ComponentBuilder("Daemon is not connected to the server.").color(ChatColor.RED).create();
+    private final BaseComponent[] MESSAGE_NEEDED = new ComponentBuilder("Need a message to send!").color(ChatColor.RED).create();
+    private final BaseComponent[] DAEMON_NEEDED = new ComponentBuilder("Daemon is not connected to the server.").color(ChatColor.RED).create();
 
     public DaemonSpeakCommand() {
         super("daemonspeak", "op", "dsay");

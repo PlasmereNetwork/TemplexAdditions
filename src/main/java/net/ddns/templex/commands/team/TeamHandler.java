@@ -1,5 +1,6 @@
 package net.ddns.templex.commands.team;
 
+import lombok.Getter;
 import net.ddns.templex.TemplexAdditionsPlugin;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -11,7 +12,8 @@ import java.util.List;
 
 public class TeamHandler {
 
-    private static final TeamMap.Team defaultTeam = new TeamMap.Team("§aNew Comer §7%s§r", new ArrayList<String>(0));
+    @Getter
+    private final TeamMap.Team defaultTeam = new TeamMap.Team("§aNew Comer §7%s§r", new ArrayList<String>(0));
     private final TeamMap map;
     private final TemplexAdditionsPlugin plugin;
 

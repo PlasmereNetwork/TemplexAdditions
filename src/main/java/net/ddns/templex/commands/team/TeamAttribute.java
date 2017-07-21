@@ -30,11 +30,17 @@ public class TeamAttribute implements Attribute {
     public BaseComponent[] applyValue(ProxiedPlayer player, String[] strings) {
         if (strings.length == 2) {
             TeamMap.Team previous = handler.removeFromTeams(player.getName());
+            if (previous == null) {
+                previous = handler.getDefaultTeam();
+            }
             return new ComponentBuilder("Removed ").color(ChatColor.GREEN)
                     .append(String.format(previous.getFormat(), player.getName()))
                     .append(" from their team.").color(ChatColor.GREEN).create();
         } else {
             TeamMap.Team previous = handler.changeTeam(player.getName(), strings[2]);
+            if (previous == null) {
+                previous = handler.getDefaultTeam();
+            }
             return new ComponentBuilder("Moved ").color(ChatColor.GREEN)
                     .append(String.format(previous.getFormat(), player.getName()))
                     .append(String.format(" to team %s.", strings[2])).color(ChatColor.GREEN).create();

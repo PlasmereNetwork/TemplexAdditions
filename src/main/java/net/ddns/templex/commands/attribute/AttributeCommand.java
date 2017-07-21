@@ -11,13 +11,12 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class AttributeCommand extends TabbableCommand {
 
-    private BaseComponent[] SYNTAX = new ComponentBuilder("Syntax:\n/attribute <player> <attribute> [value]").color(ChatColor.RED).create();
+    private final BaseComponent[] SYNTAX = new ComponentBuilder("Syntax:\n/attribute <player> <attribute> [value]").color(ChatColor.RED).create();
 
     private final TemplexAdditionsPlugin plugin;
 
