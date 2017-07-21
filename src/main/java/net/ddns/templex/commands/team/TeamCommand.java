@@ -72,7 +72,7 @@ public class TeamCommand extends TabbableCommand {
                                 .append(name).color(ChatColor.GREEN)
                                 .append("\n   - ").color(ChatColor.WHITE)
                                 .append(Integer.toString(team.getMembers().size())).color(ChatColor.GRAY)
-                                .append(String.format(" player%s", (team.getMembers().size() != 1) ? "" : "s")).color(ChatColor.GRAY)
+                                .append(String.format(" player%s", (team.getMembers().size() == 1) ? "" : "s")).color(ChatColor.GRAY)
                                 .append("\n   - ").color(ChatColor.WHITE)
                                 .append("Format: ").color(ChatColor.GRAY)
                                 .append(String.format(team.getFormat(), "Player"));
