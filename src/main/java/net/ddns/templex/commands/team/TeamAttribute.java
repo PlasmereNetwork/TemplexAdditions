@@ -29,14 +29,14 @@ public class TeamAttribute implements Attribute {
     @Override
     public BaseComponent[] applyValue(ProxiedPlayer player, String[] strings) {
         if (strings.length == 2) {
-            handler.removeFromTeams(player.getName());
+            TeamMap.Team previous = handler.removeFromTeams(player.getName());
             return new ComponentBuilder("Removed ").color(ChatColor.GREEN)
-                    .append(player.getDisplayName())
+                    .append(String.format(previous.getFormat(), player.getName()))
                     .append(" from their team.").color(ChatColor.GREEN).create();
         } else {
-            handler.changeTeam(player.getName(), strings[2]);
+            TeamMap.Team previous = handler.changeTeam(player.getName(), strings[2]);
             return new ComponentBuilder("Moved ").color(ChatColor.GREEN)
-                    .append(player.getDisplayName())
+                    .append(String.format(previous.getFormat(), player.getName()))
                     .append(String.format(" to team %s.", strings[2])).color(ChatColor.GREEN).create();
         }
     }

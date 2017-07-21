@@ -39,7 +39,7 @@ public class TeamHandler {
         player.setDisplayName(String.format(defaultTeam.getFormat(), player));
     }
 
-    public void removeFromTeams(String playerName) {
+    public TeamMap.Team removeFromTeams(String playerName) {
         for (TeamMap.Team team : map.values()) {
             if (team.getMembers().remove(playerName)) {
                 ProxiedPlayer player = ProxyServer.getInstance().getPlayer(playerName);
@@ -47,26 +47,28 @@ public class TeamHandler {
                     player.setDisplayName(String.format(defaultTeam.getFormat(), player));
                 }
                 saveMap();
-                return;
+                return team;
             }
         }
+        return null;
     }
 
-    public void changeTeam(String playerName, String teamName) {
+    public TeamMap.Team changeTeam(String playerName, String teamName) {
         if (!map.containsKey(teamName)) {
-            return;
+            return null;
         }
         TeamMap.Team targetTeam = map.get(teamName);
         if (targetTeam == null) {
-            return;
+            return null;
         }
-        removeFromTeams(playerName);
+        TeamMap.Team previous = removeFromTeams(playerName);
         targetTeam.getMembers().add(playerName);
         ProxiedPlayer player = ProxyServer.getInstance().getPlayer(playerName);
         if (player != null) {
             player.setDisplayName(String.format(targetTeam.getFormat(), player));
         }
         saveMap();
+        return previous;
     }
 
     public List<String> getTeams() {
