@@ -8,12 +8,21 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class TeamCommand extends TabbableCommand {
 
     private BaseComponent[] SYNTAX = new ComponentBuilder("Syntax:\n/team <add|remove> ...").color(ChatColor.RED).create();
     private BaseComponent[] SYNTAX_ADD = new ComponentBuilder("Syntax:\n/team add <team name> <format>").color(ChatColor.RED).create();
     private BaseComponent[] SYNTAX_REMOVE = new ComponentBuilder("Syntax:\n/team remove <team name>").color(ChatColor.RED).create();
+
+    private final List<String> options = Collections.unmodifiableList(Arrays.asList(
+            "add",
+            "remove",
+            "list"
+    ));
 
     private final TeamHandler handler;
 
@@ -28,7 +37,7 @@ public class TeamCommand extends TabbableCommand {
             commandSender.sendMessage(SYNTAX);
             return;
         }
-        switch (strings[0]) {
+        switch (strings[0].toLowerCase()) {
             case "add":
                 if (strings.length < 3) {
                     commandSender.sendMessage(SYNTAX_ADD);
@@ -54,6 +63,33 @@ public class TeamCommand extends TabbableCommand {
                         new ComponentBuilder(String.format("Team %s removed successfully.", strings[1])).color(ChatColor.GREEN).create()
                 );
                 return;
+            case "list":
+                if (strings.length == 1) {
+                    ComponentBuilder builder = new ComponentBuilder("Current teams:").color(ChatColor.GREEN);
+                    for (String name : handler.getTeams()) {
+                        TeamMap.Team team = handler.getTeamByName(name);
+                        builder.append("\n - ").color(ChatColor.WHITE)
+                                .append(name).color(ChatColor.GREEN)
+                                .append("\n   - ").color(ChatColor.WHITE)
+                                .append(Integer.toString(team.getMembers().size())).color(ChatColor.GRAY)
+                                .append(" players").color(ChatColor.GRAY)
+                                .append("\n   - ").color(ChatColor.WHITE)
+                                .append("Format: ").color(ChatColor.GRAY)
+                                .append(String.format(team.getFormat(), "Player"));
+                    }
+                    commandSender.sendMessage(builder.create());
+                } else {
+                    String name = strings[1];
+                    TeamMap.Team team = handler.getTeamByName(name);
+                    if (team != null) {
+                        ComponentBuilder builder = new ComponentBuilder(String.format("Players of team %s:", name)).color(ChatColor.GREEN);
+                        for (String player : team.getMembers()) {
+                            builder.append("\n - ").color(ChatColor.WHITE)
+                                    .append(String.format(team.getFormat(), player));
+                        }
+                        commandSender.sendMessage(builder.create());
+                    }
+                }
             default:
                 commandSender.sendMessage(SYNTAX);
         }
@@ -61,6 +97,25 @@ public class TeamCommand extends TabbableCommand {
 
     @Override
     public void handleTabCompleteEvent(TabCompleteEvent event) {
-
+        String[] items = event.getCursor().split(" ");
+        switch (items.length) {
+            case 2:
+                for (String option : options) {
+                    if (option.startsWith(items[1].toLowerCase())) {
+                        event.getSuggestions().add(option);
+                    }
+                }
+                return;
+            case 3:
+                switch (items[1]) {
+                    case "remove":
+                    case "list":
+                        for (String name : handler.getTeams()) {
+                            if (name.startsWith(items[2])) {
+                                event.getSuggestions().add(name);
+                            }
+                        }
+                }
+        }
     }
 }

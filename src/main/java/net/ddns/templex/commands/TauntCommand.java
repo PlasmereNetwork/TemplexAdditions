@@ -20,7 +20,7 @@ public class TauntCommand extends TabbableCommand {
             return;
         }
         try {
-            Daemon.getInstance().submitCommands(Collections.singletonList(""));
+            Daemon.getInstance().submitCommands(Collections.singletonList("")); // TODO
             commandSender.sendMessage(new ComponentBuilder("This is currently broken.").color(ChatColor.RED).create());
             CommandUtil.tellOps(
                     new ComponentBuilder("Taunt PL ").color(ChatColor.GOLD)

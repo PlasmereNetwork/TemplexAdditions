@@ -78,6 +78,10 @@ public class TeamHandler {
         return teams;
     }
 
+    public TeamMap.Team getTeamByName(String name) {
+        return map.get(name);
+    }
+
     public void addTeam(String teamName, TeamMap.Team team) {
         map.putIfAbsent(teamName, team);
         saveMap();
