@@ -90,6 +90,7 @@ public class TeamCommand extends TabbableCommand {
                         commandSender.sendMessage(builder.create());
                     }
                 }
+                return;
             default:
                 commandSender.sendMessage(SYNTAX);
         }
