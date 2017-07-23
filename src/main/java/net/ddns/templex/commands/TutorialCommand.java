@@ -5,8 +5,14 @@ import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.event.TabCompleteEvent;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 public class TutorialCommand extends TabbableCommand {
+    private final BaseComponent[] SYNTAX = (
+            new ComponentBuilder("Syntax:\n/tutorial OR /tutorial <how|offer|rankup|eco>").color(ChatColor.RED)
+                    .create()
+            );
     private final BaseComponent[] TUTORIAL_BEGIN = (
             new ComponentBuilder("Welcome to ").color(ChatColor.GRAY)
                     .append("Templex").color(ChatColor.DARK_AQUA)
@@ -140,6 +146,13 @@ public class TutorialCommand extends TabbableCommand {
                     .append(".").color(ChatColor.GRAY)
                     .create()
     );
+    private final BaseComponent[] TELLOPS = (
+            new ComponentBuilder("Tutorial PL").color(ChatColor.GOLD)
+                    .append(" : ").color(ChatColor.DARK_GRAY)
+                    .append(commandSender.getName()).color(ChatColor.GRAY)
+                    .append(" was just showed a tutorial!").color(ChatColor.RED)
+                    .create()
+    );
 
     public TutorialCommand() {
         super("tutorial", "nonop", "tut");
@@ -148,23 +161,39 @@ public class TutorialCommand extends TabbableCommand {
     public void execute(CommandSender commandSender, String[] strings) {
         if (strings.length == 0) {
             commandSender.sendMessage(TUTORIAL_BEGIN);
+            CommandUtil.tellOps(TELLOPS);
             return;
         }
         switch (strings[0]) {
             case "how":
                 commandSender.sendMessage(TUTORIAL_HOW);
+                CommandUtil.tellOps(TELLOPS);
                 return;
             case "offer":
                 commandSender.sendMessage(TUTORIAL_OFFER);
+                CommandUtil.tellOps(TELLOPS);
                 return;
             case "rankup":
                 commandSender.sendMessage(TUTORIAL_RANKUP);
+                CommandUtil.tellOps(TELLOPS);
                 return;
             case "eco":
                 commandSender.sendMessage(TUTORIAL_ECO);
+                CommandUtil.tellOps(TELLOPS);
                 return;
             default:
-                commandSender.sendMessage(TUTORIAL_BEGIN);
+                commandSender.sendMessage(SYNTAX);
+        }
+    }
+
+    @Override
+    public void handleTabCompleteEvent(TabCompleteEvent event) {
+        String[] items = event.getCursor().split(" ");
+        switch (items.length) {
+            case 2:
+                switch (items[1]) {
+                    // ???
+                }
         }
     }
 }

@@ -83,7 +83,8 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new HomeCommand(homeHandler),
                 new SetHomeCommand(homeHandler),
                 new FireworkCommand(),
-                new TutorialCommand()
+                new TutorialCommand(),
+                new TauntCommand()
         );
         for (TabbableCommand command : addedCommands) {
             getProxy().getPluginManager().registerCommand(this, command);
