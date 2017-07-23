@@ -22,7 +22,7 @@ public class TutorialCommand extends TabbableCommand {
                     .append("\"").color(ChatColor.DARK_GRAY)
                     .append("/tut how").color(ChatColor.DARK_PURPLE)
                     .append("\"").color(ChatColor.DARK_GRAY)
-                    .append("to see how we do this.").color(ChatColor.GRAY)
+                    .append(" to see how we do this.").color(ChatColor.GRAY)
                     .append("\nIf you wish to see what this server offers, type ").color(ChatColor.GRAY)
                     .append("\"").color(ChatColor.DARK_GRAY)
                     .append("/tut offer").color(ChatColor.DARK_PURPLE)
