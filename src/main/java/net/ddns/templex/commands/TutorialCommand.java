@@ -146,19 +146,19 @@ public class TutorialCommand extends TabbableCommand {
                     .append(".").color(ChatColor.GRAY)
                     .create()
     );
-    private final BaseComponent[] TELLOPS = (
-            new ComponentBuilder("Tutorial PL").color(ChatColor.GOLD)
-                    .append(" : ").color(ChatColor.DARK_GRAY)
-                    .append(commandSender.getName()).color(ChatColor.GRAY)
-                    .append(" was just showed a tutorial!").color(ChatColor.RED)
-                    .create()
-    );
 
     public TutorialCommand() {
         super("tutorial", "nonop", "tut");
     }
 
     public void execute(CommandSender commandSender, String[] strings) {
+        final BaseComponent[] TELLOPS = (
+                new ComponentBuilder("Tutorial PL").color(ChatColor.GOLD)
+                        .append(" : ").color(ChatColor.DARK_GRAY)
+                        .append(commandSender.getName()).color(ChatColor.GRAY)
+                        .append(" was just showed a tutorial!").color(ChatColor.RED)
+                        .create()
+        );
         if (strings.length == 0) {
             commandSender.sendMessage(TUTORIAL_BEGIN);
             CommandUtil.tellOps(TELLOPS);

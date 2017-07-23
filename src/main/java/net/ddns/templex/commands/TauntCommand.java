@@ -18,18 +18,18 @@ public class TauntCommand extends TabbableCommand {
             new ComponentBuilder("Successfully taunted all nearby surroundings!").color(ChatColor.GREEN)
                     .create()
             );
-    private final BaseComponent[] TELLOPS = (
-            new ComponentBuilder("Taunt PL").color(ChatColor.GOLD)
-                    .append(" : ").color(ChatColor.DARK_GRAY)
-                    .append(commandSender.getName()).color(ChatColor.GRAY)
-                    .append(" just taunted their surroundings!").color(ChatColor.RED)
-                    .create()
-            );
 
     public TauntCommand() {super("taunt","special");}
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
+        final BaseComponent[] TELLOPS = (
+                new ComponentBuilder("Taunt PL").color(ChatColor.GOLD)
+                        .append(" : ").color(ChatColor.DARK_GRAY)
+                        .append(commandSender.getName()).color(ChatColor.GRAY)
+                        .append(" just taunted their surroundings!").color(ChatColor.RED)
+                        .create()
+        );
         if (strings.length == 0) {
             commandSender.sendMessage(SYNTAX);
             return;
