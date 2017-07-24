@@ -1,6 +1,7 @@
 package net.ddns.templex.login;
 
 import com.google.common.net.InetAddresses;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import net.ddns.templex.TemplexAdditionsPlugin;
 import net.ddns.templex.commands.SpawnCommand;
@@ -27,8 +28,6 @@ public class PlayerLoginListener implements Listener {
 
     private final List<String> joined;
 
-    private final ExecutorService saveThread = Executors.newSingleThreadExecutor();
-
     private SpawnCommand spawnCommand = null;
 
     @SuppressWarnings("unchecked")
@@ -36,7 +35,11 @@ public class PlayerLoginListener implements Listener {
         this.plugin = plugin;
         List<String> joined;
         try {
-            joined = Collections.synchronizedList(plugin.getConfigHandler().getConfig("joined.json", List.class));
+            List<String> temp = plugin.getConfigHandler().getConfig("joined.json", List.class);
+            if (temp == null) {
+                throw new IOException();
+            }
+            joined = Collections.synchronizedList(temp);
         } catch (IOException e) {
             e.printStackTrace();
             joined = Collections.synchronizedList(new ArrayList<String>());
