@@ -40,6 +40,7 @@ public class TauntCommand extends TabbableCommand {
                     Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ execute @a[r=20] ~ ~ ~ playsound minecraft:entity.shulker.ambient master @s",commandSender.getName())));
                     commandSender.sendMessage(ROAR);
                     CommandUtil.tellOps(TELLOPS);
+                    return;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -48,6 +49,7 @@ public class TauntCommand extends TabbableCommand {
                     Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ execute @a[r=20] ~ ~ ~ playsound minecraft:entity.endermen.stare master @s",commandSender.getName())));
                     commandSender.sendMessage(ROAR);
                     CommandUtil.tellOps(TELLOPS);
+                    return;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
