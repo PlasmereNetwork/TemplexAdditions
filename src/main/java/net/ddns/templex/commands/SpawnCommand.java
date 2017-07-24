@@ -28,7 +28,7 @@ public class SpawnCommand extends TabbableCommand {
         super("spawn", "nonop");
         CoordinateTriad spawn;
         try {
-            spawn = plugin.getConfigHandler().getConfig("end.json", CoordinateTriad.class);
+            spawn = plugin.getConfigHandler().getConfig("spawn.json", CoordinateTriad.class);
         } catch (IOException e) {
             spawn = null;
             e.printStackTrace();
