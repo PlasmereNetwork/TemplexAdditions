@@ -18,12 +18,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class PlayerLoginListener implements Listener {
 
     private final TemplexAdditionsPlugin plugin;
 
     private final List<String> joined;
+
+    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
     private SpawnCommand spawnCommand = null;
 
@@ -89,7 +94,14 @@ public class PlayerLoginListener implements Listener {
                             }
                         }
                     }
-                    spawnCommand.execute(player, new String[0]);
+                    executorService.schedule(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    spawnCommand.execute(player, new String[0]);
+                                }
+                            }, 5, TimeUnit.SECONDS
+                    );
                 }
             }
         });
