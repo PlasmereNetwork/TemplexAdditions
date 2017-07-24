@@ -85,7 +85,7 @@ public class PlayerLoginListener implements Listener {
                 establishOp(player);
                 establishSpecial(player);
                 player.setPermission("nonop", true);
-                if (!joined.contains(player)) {
+                if (!joined.contains(player.getName())) {
                     joined.add(player.getName());
                     if (spawnCommand == null) {
                         for (TabbableCommand command : plugin.getAddedCommands()) {
