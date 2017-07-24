@@ -1,7 +1,6 @@
 package net.ddns.templex.login;
 
 import com.google.common.net.InetAddresses;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import net.ddns.templex.TemplexAdditionsPlugin;
 import net.ddns.templex.commands.SpawnCommand;
@@ -19,8 +18,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class PlayerLoginListener implements Listener {
 
