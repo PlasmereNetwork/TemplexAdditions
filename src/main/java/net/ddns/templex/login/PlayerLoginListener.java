@@ -37,7 +37,7 @@ public class PlayerLoginListener implements Listener {
         try {
             List<String> temp = plugin.getConfigHandler().getConfig("joined.json", List.class);
             if (temp == null) {
-                throw new IOException();
+                throw new IOException("No joined.json file was found.");
             }
             joined = Collections.synchronizedList(temp);
         } catch (IOException e) {
@@ -50,7 +50,7 @@ public class PlayerLoginListener implements Listener {
             public void run() {
                 try {
                     PlayerLoginListener.this.plugin.getConfigHandler().saveConfig("joined.json", PlayerLoginListener.this.joined);
-                } catch (IOException e) {
+                } catch (IOException ignored) {
                 }
             }
         }));
