@@ -1,8 +1,9 @@
 package net.ddns.templex.login;
 
 import com.google.common.net.InetAddresses;
-import lombok.RequiredArgsConstructor;
+import io.github.trulyfree.va.command.commands.TabbableCommand;
 import net.ddns.templex.TemplexAdditionsPlugin;
+import net.ddns.templex.commands.SpawnCommand;
 import net.ddns.templex.player.config.BannedIPs;
 import net.ddns.templex.player.config.OPs;
 import net.ddns.templex.player.config.Specials;
@@ -14,11 +15,43 @@ import net.md_5.bungee.event.EventHandler;
 import net.md_5.bungee.event.EventPriority;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-@RequiredArgsConstructor
 public class PlayerLoginListener implements Listener {
 
     private final TemplexAdditionsPlugin plugin;
+
+    private final List<String> joined;
+
+    private final ExecutorService saveThread = Executors.newSingleThreadExecutor();
+
+    private SpawnCommand spawnCommand = null;
+
+    @SuppressWarnings("unchecked")
+    public PlayerLoginListener(TemplexAdditionsPlugin plugin) {
+        this.plugin = plugin;
+        List<String> joined;
+        try {
+            joined = Collections.synchronizedList(plugin.getConfigHandler().getConfig("joined.json", List.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+            joined = Collections.synchronizedList(new ArrayList<String>());
+        }
+        this.joined = joined;
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    PlayerLoginListener.this.plugin.getConfigHandler().saveConfig("joined.json", PlayerLoginListener.this.joined);
+                } catch (IOException e) {
+                }
+            }
+        }));
+    }
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onPreLoginEvent(PreLoginEvent event) {
@@ -47,6 +80,17 @@ public class PlayerLoginListener implements Listener {
                 establishOp(player);
                 establishSpecial(player);
                 player.setPermission("nonop", true);
+                if (!joined.contains(player)) {
+                    joined.add(player.getName());
+                    if (spawnCommand == null) {
+                        for (TabbableCommand command : plugin.getAddedCommands()) {
+                            if (command instanceof SpawnCommand) {
+                                spawnCommand = (SpawnCommand) command;
+                            }
+                        }
+                    }
+                    spawnCommand.execute(player, new String[0]);
+                }
             }
         });
     }
@@ -82,5 +126,4 @@ public class PlayerLoginListener implements Listener {
             e.printStackTrace();
         }
     }
-
 }
