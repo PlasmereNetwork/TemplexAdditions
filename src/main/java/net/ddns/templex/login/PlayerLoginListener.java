@@ -1,7 +1,6 @@
 package net.ddns.templex.login;
 
 import com.google.common.net.InetAddresses;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import net.ddns.templex.TemplexAdditionsPlugin;
@@ -20,14 +19,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class PlayerLoginListener implements Listener {
 
     private final TemplexAdditionsPlugin plugin;
 
     private final List<String> joined;
+
+    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
     private SpawnCommand spawnCommand = null;
 
@@ -84,7 +86,7 @@ public class PlayerLoginListener implements Listener {
                 establishOp(player);
                 establishSpecial(player);
                 player.setPermission("nonop", true);
-                if (!joined.contains(player)) {
+                if (!joined.contains(player.getName())) {
                     joined.add(player.getName());
                     if (spawnCommand == null) {
                         for (TabbableCommand command : plugin.getAddedCommands()) {
@@ -98,7 +100,14 @@ public class PlayerLoginListener implements Listener {
                             }
                         }
                     }
-                    spawnCommand.execute(player, new String[0]);
+                    executorService.schedule(
+                            new Runnable() {
+                                @Override
+                                public void run() {
+                                    spawnCommand.execute(player, new String[0]);
+                                }
+                            }, 5, TimeUnit.SECONDS
+                    );
                 }
             }
         });
