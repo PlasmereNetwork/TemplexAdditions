@@ -28,7 +28,7 @@ public class Joined extends ArrayList<Joined.JoinedEntry> {
     @RequiredArgsConstructor
     public static class JoinedAttribute implements Attribute {
 
-        private final BaseComponent[] BAD_VALUE = new ComponentBuilder("This attribute requires a boolean value.").color(ChatColor.RED).create();
+        private final BaseComponent[] BAD_VALUE = new ComponentBuilder("This attribute requires a boolean value. ").color(ChatColor.RED).create();
 
         private final TemplexAdditionsPlugin plugin;
 
