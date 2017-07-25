@@ -3,6 +3,7 @@ package net.ddns.templex.login;
 import com.google.common.net.InetAddresses;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
+import io.github.trulyfree.va.daemon.Daemon;
 import net.ddns.templex.TemplexAdditionsPlugin;
 import net.ddns.templex.commands.SpawnCommand;
 import net.ddns.templex.player.config.BannedIPs;
@@ -89,6 +90,11 @@ public class PlayerLoginListener implements Listener {
                         for (TabbableCommand command : plugin.getAddedCommands()) {
                             if (command instanceof SpawnCommand) {
                                 spawnCommand = (SpawnCommand) command;
+                            }
+                            try {
+                                Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint -156 70 106 @s",player))); // The coords in this are temporary. Please, no hate. D:
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
                             }
                         }
                     }

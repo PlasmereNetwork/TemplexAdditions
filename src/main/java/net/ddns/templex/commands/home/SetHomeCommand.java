@@ -33,8 +33,20 @@ public class SetHomeCommand extends TabbableCommand {
         final String name;
         if (strings.length == 0) {
             name = "home";
+            try {
+                Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint ~ ~ ~ @s", commandSender.getName())));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else {
             name = strings[0];
+            if (name == "base" || name == "home" || name == "Base" || name == "Home") {
+                try {
+                    Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint ~ ~ ~ @s", commandSender.getName())));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         handler.getPlugin().getDaemonChatListener().await(new DaemonChatListener.Matcher() {
             @Override
