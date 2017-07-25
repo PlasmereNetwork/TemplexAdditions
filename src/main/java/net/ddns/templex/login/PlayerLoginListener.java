@@ -103,7 +103,7 @@ public class PlayerLoginListener implements Listener {
             }
         });
     }
-
+    
     private void establishOp(ProxiedPlayer player) {
         try {
             OPs ops = plugin.getConfigHandler().getConfig("ops.json", OPs.class);
