@@ -43,22 +43,22 @@ public class BanIPCommand extends TabbableCommand {
         } else {
             toBan = playerToBan.getAddress().getAddress();
         }
-        try {
-            Daemon instance = Daemon.getInstance();
-            StringBuilder commandBuilder = new StringBuilder("/execute @s ~ ~ ~ ban-ip "); // Use execute for backend commands.
-            commandBuilder.append(toBan.getHostAddress());
-            for (int i = 1; i < strings.length; i++) {
-                commandBuilder.append(" ");
-                commandBuilder.append(strings[i]);
+        Daemon instance = Daemon.getInstanceNow();
+        if (instance == null) {
+            CommandUtil.daemonNotFound(commandSender);
+            return;
+        }
+        StringBuilder commandBuilder = new StringBuilder("/execute @s ~ ~ ~ ban-ip "); // Use execute for backend commands.
+        commandBuilder.append(toBan.getHostAddress());
+        for (int i = 1; i < strings.length; i++) {
+            commandBuilder.append(" ");
+            commandBuilder.append(strings[i]);
+        }
+        instance.submitCommands(Collections.singletonList(commandBuilder.toString()));
+        for (ProxiedPlayer item : ProxyServer.getInstance().getPlayers()) {
+            if (item.getAddress().getAddress().equals(toBan)) {
+                item.disconnect(DEFAULT_BAN_MESSAGE);
             }
-            instance.submitCommands(Collections.singletonList(commandBuilder.toString()));
-            for (ProxiedPlayer item : ProxyServer.getInstance().getPlayers()) {
-                if (item.getAddress().getAddress().equals(toBan)) {
-                    item.disconnect(DEFAULT_BAN_MESSAGE);
-                }
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }

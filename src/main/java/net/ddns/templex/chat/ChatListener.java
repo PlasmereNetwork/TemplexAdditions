@@ -19,8 +19,9 @@ public class ChatListener implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onChatEvent(final ChatEvent event) {
+        Daemon instance = Daemon.getInstanceNow();
         if (event.getSender() instanceof ProxiedPlayer
-                && !event.getSender().equals(Daemon.getInstanceNow().getPlayer())) {
+                && (instance == null || !event.getSender().equals(instance.getPlayer()))) {
             if (event.isCommand()) {
                 int firstSpace = event.getMessage().indexOf(" ");
                 String name;

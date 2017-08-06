@@ -2,8 +2,11 @@ package net.ddns.templex.commands;
 
 import lombok.NonNull;
 import net.ddns.templex.player.PlayerUtil;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.TabCompleteEvent;
 
@@ -12,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class CommandUtil {
+
+    private static final BaseComponent[] DAEMON_NOT_FOUND = new ComponentBuilder("Daemon was not assigned!").color(ChatColor.RED).create();
 
     private CommandUtil() {
         throw new UnsupportedOperationException("Instantiation is not permitted.");
@@ -49,6 +54,10 @@ public class CommandUtil {
         for (ProxiedPlayer op : PlayerUtil.getOnlineOps()) {
             op.sendMessage(components);
         }
+    }
+
+    public static void daemonNotFound(CommandSender sender) {
+        sender.sendMessage(DAEMON_NOT_FOUND);
     }
 
 }

@@ -28,10 +28,11 @@ public class DaemonizeCommand extends TabbableCommand {
             commandBuilder.append(' ');
             commandBuilder.append(item);
         }
-        try {
-            Daemon.getInstance().submitCommands(Collections.singletonList(commandBuilder.toString()));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Daemon instance = Daemon.getInstanceNow();
+        if (instance == null) {
+            CommandUtil.daemonNotFound(commandSender);
+            return;
         }
+        instance.submitCommands(Collections.singletonList(commandBuilder.toString()));
     }
 }

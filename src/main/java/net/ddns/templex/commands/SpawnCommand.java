@@ -45,19 +45,20 @@ public class SpawnCommand extends TabbableCommand {
             commandSender.sendMessage(NO_COORDS);
             return;
         }
-        try {
-            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/tp %s %s", commandSender.getName(), spawn)));
-            CommandUtil.tellOps(
-                    new ComponentBuilder("Spawn PL ").color(ChatColor.GOLD)
-                            .append(": ").color(ChatColor.DARK_GRAY)
-                            .append("Successfully teleported ").color(ChatColor.RED)
-                            .append(commandSender.getName()).color(ChatColor.GRAY)
-                            .append(" to Spawn!").color(ChatColor.RED).create()
-            );
-            commandSender.sendMessage(new ComponentBuilder("You have been successfully teleported to Spawn!").color(ChatColor.GREEN).create());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Daemon instance = Daemon.getInstanceNow();
+        if (instance == null) {
+            CommandUtil.daemonNotFound(commandSender);
+            return;
         }
+        instance.submitCommands(Collections.singletonList(String.format("/tp %s %s", commandSender.getName(), spawn)));
+        CommandUtil.tellOps(
+                new ComponentBuilder("Spawn PL ").color(ChatColor.GOLD)
+                        .append(": ").color(ChatColor.DARK_GRAY)
+                        .append("Successfully teleported ").color(ChatColor.RED)
+                        .append(commandSender.getName()).color(ChatColor.GRAY)
+                        .append(" to Spawn!").color(ChatColor.RED).create()
+        );
+        commandSender.sendMessage(new ComponentBuilder("You have been successfully teleported to Spawn!").color(ChatColor.GREEN).create());
     }
 
     @Override

@@ -6,13 +6,12 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.event.TabCompleteEvent;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 public class TutorialCommand extends TabbableCommand {
     private final BaseComponent[] SYNTAX = (
             new ComponentBuilder("Syntax:\n/tutorial OR /tutorial <how|offer|rankup|eco>").color(ChatColor.RED)
                     .create()
-            );
+    );
     private final BaseComponent[] TUTORIAL_BEGIN = (
             new ComponentBuilder("Welcome to ").color(ChatColor.GRAY)
                     .append("Templex").color(ChatColor.DARK_AQUA)

@@ -93,11 +93,11 @@ public class PlayerLoginListener implements Listener {
                             if (command instanceof SpawnCommand) {
                                 spawnCommand = (SpawnCommand) command;
                             }
-                            try {
-                                Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint -156 70 106 @s",player))); // The coords in this are temporary. Please, no hate. D:
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                            Daemon instance = Daemon.getInstanceNow();
+                            if (instance == null) {
+                                return;
                             }
+                            instance.submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint -156 70 106 @s", player))); // The coords in this are temporary. Please, no hate. D:
                         }
                     }
                     executorService.schedule(
@@ -112,7 +112,7 @@ public class PlayerLoginListener implements Listener {
             }
         });
     }
-    
+
     private void establishOp(ProxiedPlayer player) {
         try {
             OPs ops = plugin.getConfigHandler().getConfig("ops.json", OPs.class);

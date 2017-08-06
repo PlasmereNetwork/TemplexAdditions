@@ -13,13 +13,15 @@ public class TauntCommand extends TabbableCommand {
     private final BaseComponent[] SYNTAX = (
             new ComponentBuilder("Syntax:\n/taunt <shulker|enderman>").color(ChatColor.RED)
                     .create()
-            );
+    );
     private final BaseComponent[] ROAR = (
             new ComponentBuilder("Successfully taunted all nearby surroundings!").color(ChatColor.GREEN)
                     .create()
-            );
+    );
 
-    public TauntCommand() {super("taunt","special");}
+    public TauntCommand() {
+        super("taunt", "special");
+    }
 
     @Override
     public void execute(CommandSender commandSender, String[] strings) {
@@ -34,25 +36,22 @@ public class TauntCommand extends TabbableCommand {
             commandSender.sendMessage(SYNTAX);
             return;
         }
+        Daemon instance = Daemon.getInstanceNow();
+        if (instance == null) {
+            CommandUtil.daemonNotFound(commandSender);
+            return;
+        }
         switch (strings[0]) {
             case "shulker":
-                try {
-                    Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ execute @a[r=20] ~ ~ ~ playsound minecraft:entity.shulker.ambient master @s",commandSender.getName())));
-                    commandSender.sendMessage(ROAR);
-                    CommandUtil.tellOps(TELLOPS);
-                    return;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                instance.submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ execute @a[r=20] ~ ~ ~ playsound minecraft:entity.shulker.ambient master @s", commandSender.getName())));
+                commandSender.sendMessage(ROAR);
+                CommandUtil.tellOps(TELLOPS);
+                return;
             case "enderman":
-                try {
-                    Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ execute @a[r=20] ~ ~ ~ playsound minecraft:entity.endermen.stare master @s",commandSender.getName())));
-                    commandSender.sendMessage(ROAR);
-                    CommandUtil.tellOps(TELLOPS);
-                    return;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                instance.submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ execute @a[r=20] ~ ~ ~ playsound minecraft:entity.endermen.stare master @s", commandSender.getName())));
+                commandSender.sendMessage(ROAR);
+                CommandUtil.tellOps(TELLOPS);
+                return;
         }
     }
 }

@@ -14,7 +14,6 @@ import net.ddns.templex.commands.team.TeamCommand;
 import net.ddns.templex.commands.team.TeamHandler;
 import net.ddns.templex.daemon.DaemonChatListener;
 import net.ddns.templex.login.PlayerLoginListener;
-//import net.ddns.templex.ping.PingListener;
 import net.ddns.templex.player.config.Specials;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -37,8 +36,6 @@ public class TemplexAdditionsPlugin extends Plugin {
     private TeamHandler teamHandler;
     @Getter
     private DaemonChatListener daemonChatListener;
-//    @Getter
-//    private PingListener pingListener;
     @Getter
     private PlayerLoginListener loginListener;
     @Getter
@@ -54,13 +51,11 @@ public class TemplexAdditionsPlugin extends Plugin {
         this.configHandler = new ConfigHandler(this);
         this.teamHandler = new TeamHandler(this);
         this.daemonChatListener = new DaemonChatListener(this);
-//        this.pingListener = new PingListener();
         this.loginListener = new PlayerLoginListener(this);
         this.chatListener = new ChatListener(this);
         registerCommands();
         getProxy().getPluginManager().registerListener(this, homeHandler);
         getProxy().getPluginManager().registerListener(this, daemonChatListener);
-//        getProxy().getPluginManager().registerListener(this, pingListener);
         getProxy().getPluginManager().registerListener(this, loginListener);
         getProxy().getPluginManager().registerListener(this, chatListener);
     }

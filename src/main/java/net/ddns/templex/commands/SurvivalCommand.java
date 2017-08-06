@@ -23,18 +23,19 @@ public class SurvivalCommand extends TabbableCommand {
         if (!(commandSender instanceof ProxiedPlayer)) {
             return;
         }
-        try {
-            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/gamemode s %s", commandSender.getName())));
-            CommandUtil.tellOps(
-                    new ComponentBuilder("Survival PL ").color(ChatColor.GOLD)
-                            .append(": ").color(ChatColor.DARK_GRAY)
-                            .append("Successfully changed ").color(ChatColor.RED)
-                            .append(commandSender.getName()).color(ChatColor.GRAY)
-                            .append("'s gamemode to survival!").color(ChatColor.RED).create()
-            );
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Daemon instance = Daemon.getInstanceNow();
+        if (instance == null) {
+            CommandUtil.daemonNotFound(commandSender);
+            return;
         }
+        instance.submitCommands(Collections.singletonList(String.format("/gamemode s %s", commandSender.getName())));
+        CommandUtil.tellOps(
+                new ComponentBuilder("Survival PL ").color(ChatColor.GOLD)
+                        .append(": ").color(ChatColor.DARK_GRAY)
+                        .append("Successfully changed ").color(ChatColor.RED)
+                        .append(commandSender.getName()).color(ChatColor.GRAY)
+                        .append("'s gamemode to survival!").color(ChatColor.RED).create()
+        );
     }
 
 }

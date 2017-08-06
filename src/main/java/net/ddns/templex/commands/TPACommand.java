@@ -58,11 +58,12 @@ public class TPACommand extends TabbableCommand {
                 commandSender.sendMessage(NO_ACTIVE_REQUESTS);
             } else {
                 requests.remove(target);
-                try {
-                    Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/tp %s %s", target.getName(), executor.getName())));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                Daemon instance = Daemon.getInstanceNow();
+                if (instance == null) {
+                    CommandUtil.daemonNotFound(commandSender);
+                    return;
                 }
+                instance.submitCommands(Collections.singletonList(String.format("/tp %s %s", target.getName(), executor.getName())));
             }
             return;
         }

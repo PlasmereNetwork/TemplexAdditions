@@ -20,18 +20,19 @@ public class FireworkCommand extends TabbableCommand {
         if (!(commandSender instanceof ProxiedPlayer)) {
             return;
         }
-        try {
-            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ summon fireworks_rocket ~ ~ ~ {LifeTime:40,Damage:0s}", commandSender.getName())));
-            CommandUtil.tellOps(
-                    new ComponentBuilder("Firework PL ").color(ChatColor.GOLD)
-                            .append(": ").color(ChatColor.DARK_GRAY)
-                            .append(commandSender.getName()).color(ChatColor.GREEN)
-                            .append(" just sent off a rocket!").color(ChatColor.RED)
-                            .create()
-            );
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Daemon instance = Daemon.getInstanceNow();
+        if (instance == null) {
+            CommandUtil.daemonNotFound(commandSender);
+            return;
         }
+        instance.submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ summon fireworks_rocket ~ ~ ~ {LifeTime:40,Damage:0s}", commandSender.getName())));
+        CommandUtil.tellOps(
+                new ComponentBuilder("Firework PL ").color(ChatColor.GOLD)
+                        .append(": ").color(ChatColor.DARK_GRAY)
+                        .append(commandSender.getName()).color(ChatColor.GREEN)
+                        .append(" just sent off a rocket!").color(ChatColor.RED)
+                        .create()
+        );
     }
 
 }

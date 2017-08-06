@@ -3,6 +3,7 @@ package net.ddns.templex.commands.home;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import lombok.NonNull;
+import net.ddns.templex.commands.CommandUtil;
 import net.ddns.templex.world.CoordinateTriad;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.CommandSender;
@@ -35,12 +36,13 @@ public class HomeCommand extends TabbableCommand {
         ProxiedPlayer player = (ProxiedPlayer) commandSender;
         CoordinateTriad coordinateTriad = handler.getActiveHomes().get(player).getHomes().get(name);
         if (coordinateTriad != null) {
-            try {
-                Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/tp %s %s", player.getName(), coordinateTriad.toString())));
-                player.sendMessage(new ComponentBuilder(String.format("Successfully teleported you to '%s'.", name)).color(ChatColor.GREEN).create());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            Daemon instance = Daemon.getInstanceNow();
+            if (instance == null) {
+                CommandUtil.daemonNotFound(commandSender);
+                return;
             }
+            instance.submitCommands(Collections.singletonList(String.format("/tp %s %s", player.getName(), coordinateTriad.toString())));
+            player.sendMessage(new ComponentBuilder(String.format("Successfully teleported you to '%s'.", name)).color(ChatColor.GREEN).create());
         } else {
             commandSender.sendMessage(new ComponentBuilder(String.format("You don't have a home called %s", name)).color(ChatColor.RED).create());
         }

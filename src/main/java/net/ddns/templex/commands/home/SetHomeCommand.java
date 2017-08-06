@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import io.github.trulyfree.va.command.commands.TabbableCommand;
 import io.github.trulyfree.va.daemon.Daemon;
 import lombok.NonNull;
+import net.ddns.templex.commands.CommandUtil;
 import net.ddns.templex.daemon.DaemonChatListener;
 import net.ddns.templex.world.CoordinateTriad;
 import net.md_5.bungee.api.ChatColor;
@@ -14,6 +15,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.Collections;
+import java.util.Objects;
 
 public class SetHomeCommand extends TabbableCommand {
 
@@ -31,38 +33,31 @@ public class SetHomeCommand extends TabbableCommand {
         }
         final ProxiedPlayer player = (ProxiedPlayer) commandSender;
         final String name;
+        final Daemon instance = Daemon.getInstanceNow();
+        if (instance == null) {
+            CommandUtil.daemonNotFound(commandSender);
+            return;
+        }
         if (strings.length == 0) {
             name = "home";
-            try {
-                Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint ~ ~ ~ @s", commandSender.getName())));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            instance.submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint ~ ~ ~ @s", commandSender.getName())));
         } else {
             name = strings[0];
-            if (name == "base" || name == "home" || name == "Base" || name == "Home") {
-                try {
-                    Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint ~ ~ ~ @s", commandSender.getName())));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+            if (Objects.equals(name, "base") || Objects.equals(name, "home") || Objects.equals(name, "Base") || Objects.equals(name, "Home")) {
+                instance.submitCommands(Collections.singletonList(String.format("/execute %s ~ ~ ~ spawnpoint ~ ~ ~ @s", commandSender.getName())));
             }
         }
         handler.getPlugin().getDaemonChatListener().await(new DaemonChatListener.Matcher() {
             @Override
             public boolean matches(JsonObject jsonObject) {
-                try {
-                    return jsonObject.getAsJsonArray("with").get(0).getAsString()
-                            .equals(Daemon.getInstance().getPlayer().getName()) // obj.with[0] == "VADaemon"
-                            && jsonObject.getAsJsonArray("with").get(1).getAsJsonObject()
-                            .get("translate").getAsString()
-                            .equals("commands.tp.success.coordinates") // obj.with[1].translate == "commands.tp.success.coordinates"
-                            && jsonObject.getAsJsonArray("with").get(1).getAsJsonObject()
-                            .getAsJsonArray("with").get(0).getAsString()
-                            .equals(player.getName()); // obj.with[1].with[0] == playername
-                } catch (InterruptedException e) {
-                    return false;
-                }
+                return jsonObject.getAsJsonArray("with").get(0).getAsString()
+                        .equals(instance.getPlayer().getName()) // obj.with[0] == "VADaemon"
+                        && jsonObject.getAsJsonArray("with").get(1).getAsJsonObject()
+                        .get("translate").getAsString()
+                        .equals("commands.tp.success.coordinates") // obj.with[1].translate == "commands.tp.success.coordinates"
+                        && jsonObject.getAsJsonArray("with").get(1).getAsJsonObject()
+                        .getAsJsonArray("with").get(0).getAsString()
+                        .equals(player.getName()); // obj.with[1].with[0] == playername
             }
         }, new FutureCallback<JsonObject>() {
             @Override
@@ -85,9 +80,6 @@ public class SetHomeCommand extends TabbableCommand {
                 player.sendMessage(new ComponentBuilder(String.format("Home '%s' could not be set. Please contact an administrator.", name)).color(ChatColor.RED).create());
             }
         });
-        try {
-            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/execute @s ~ ~ ~ tp %s ~ ~ ~", commandSender.getName())));
-        } catch (InterruptedException ignored) {
-        }
+        instance.submitCommands(Collections.singletonList(String.format("/execute @s ~ ~ ~ tp %s ~ ~ ~", commandSender.getName())));
     }
 }

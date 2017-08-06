@@ -26,19 +26,20 @@ public class RTPCommand extends TabbableCommand {
         if (!(commandSender instanceof ProxiedPlayer)) {
             return;
         }
-        try {
-            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/spreadplayers  ~ ~ 700000 2000000 false %s", commandSender.getName())));
-            CommandUtil.tellOps(
-                    new ComponentBuilder("RTP PL ").color(ChatColor.GOLD)
-                            .append(": ").color(ChatColor.DARK_GRAY)
-                            .append("Successfully RTPed ").color(ChatColor.RED)
-                            .append(commandSender.getName()).color(ChatColor.GRAY)
-                            .append("!").color(ChatColor.RED).create()
-            );
-            commandSender.sendMessage(SUCCESS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        Daemon instance = Daemon.getInstanceNow();
+        if (instance == null) {
+            CommandUtil.daemonNotFound(commandSender);
+            return;
         }
+        instance.submitCommands(Collections.singletonList(String.format("/spreadplayers  ~ ~ 700000 2000000 false %s", commandSender.getName())));
+        CommandUtil.tellOps(
+                new ComponentBuilder("RTP PL ").color(ChatColor.GOLD)
+                        .append(": ").color(ChatColor.DARK_GRAY)
+                        .append("Successfully RTPed ").color(ChatColor.RED)
+                        .append(commandSender.getName()).color(ChatColor.GRAY)
+                        .append("!").color(ChatColor.RED).create()
+        );
+        commandSender.sendMessage(SUCCESS);
     }
 
 }
