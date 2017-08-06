@@ -9,13 +9,9 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.util.Collections;
 
-/**
- * Used for to change someone's gamemode to survival.
- */
-public class SurvivalCommand extends TabbableCommand {
-
-    public SurvivalCommand() {
-        super("survival", "nonop");
+public class RespawnCommand extends TabbableCommand {
+    public RespawnCommand() {
+        super("respawn", "nonop", "resp");
     }
 
     @Override
@@ -24,22 +20,21 @@ public class SurvivalCommand extends TabbableCommand {
             return;
         }
         try {
-            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/gamemode s %s", commandSender.getName())));
+            Daemon.getInstance().submitCommands(Collections.singletonList(String.format("/kill %s", commandSender.getName())));
             commandSender.sendMessage(new
-                    ComponentBuilder("Successfully set your gamemode to survival!")
+                    ComponentBuilder("Successfully returned to your spawnpoint!")
                     .color(ChatColor.GREEN)
                     .create()
             );
             CommandUtil.tellOps(
-                    new ComponentBuilder("Survival PL ").color(ChatColor.GOLD)
+                    new ComponentBuilder("Respawn PL ").color(ChatColor.GOLD)
                             .append(": ").color(ChatColor.DARK_GRAY)
-                            .append("Successfully changed ").color(ChatColor.RED)
+                            .append("Successfully respawned ").color(ChatColor.RED)
                             .append(commandSender.getName()).color(ChatColor.GRAY)
-                            .append("'s gamemode to survival!").color(ChatColor.RED).create()
+                            .append(" at their base!").color(ChatColor.RED).create()
             );
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
 }
