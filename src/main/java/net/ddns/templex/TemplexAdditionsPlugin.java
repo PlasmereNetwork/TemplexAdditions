@@ -12,6 +12,8 @@ import net.ddns.templex.commands.home.HomeHandler;
 import net.ddns.templex.commands.home.SetHomeCommand;
 import net.ddns.templex.commands.team.TeamCommand;
 import net.ddns.templex.commands.team.TeamHandler;
+import net.ddns.templex.commands.tpa.TPACommand;
+import net.ddns.templex.commands.tpa.TPAHereCommand;
 import net.ddns.templex.daemon.DaemonChatListener;
 import net.ddns.templex.login.PlayerLoginListener;
 import net.ddns.templex.player.config.Specials;
@@ -52,7 +54,7 @@ public class TemplexAdditionsPlugin extends Plugin {
         this.teamHandler = new TeamHandler(this);
         this.daemonChatListener = new DaemonChatListener(this);
         this.loginListener = new PlayerLoginListener(this);
-        this.chatListener = new ChatListener(this);
+        this.chatListener = new ChatListener(); // Turn into this.chatListener = new ChatListener(this); upon fail.
         registerCommands();
         getProxy().getPluginManager().registerListener(this, homeHandler);
         getProxy().getPluginManager().registerListener(this, daemonChatListener);
@@ -79,7 +81,8 @@ public class TemplexAdditionsPlugin extends Plugin {
                 new SetHomeCommand(homeHandler),
                 new FireworkCommand(),
                 new TutorialCommand(),
-                new TauntCommand()
+                new TauntCommand(),
+                new BedCommand()
         );
         for (TabbableCommand command : addedCommands) {
             getProxy().getPluginManager().registerCommand(this, command);
